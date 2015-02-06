@@ -1,0 +1,434 @@
+﻿/************************************************************/
+/*****              SqlDataProvider                     *****/
+/*****                                                  *****/
+/*****                                                  *****/
+/***** Note: To manually execute this script you must   *****/
+/*****       perform a search and replace operation     *****/
+/*****       for {databaseOwner} and {objectQualifier}  *****/
+/*****                                                  *****/
+/************************************************************/
+
+/** Create FAQs Table **/
+
+/* =====================================================================================
+/   TABLE: {databaseOwner}{objectQualifier}FAQs
+/  ===================================================================================== */
+
+if exists (select * from dbo.sysobjects where id = object_id(N'{databaseOwner}[{objectQualifier}FAQs]') and OBJECTPROPERTY(id, N'IsTable') = 1)
+	if not exists (select * from dbo.sysobjects O INNER JOIN dbo.syscolumns C ON O.ID = C.ID where OBJECTPROPERTY(O.ID, N'IsTable') = 1 and O.Name = N'{databaseOwner}[{objectQualifier}FAQs]' and C.Name = N'[CategoryId]')
+		BEGIN 
+			ALTER TABLE {databaseOwner}[{objectQualifier}FAQs] ADD [CategoryId] [int] NULL
+			ALTER TABLE {databaseOwner}[{objectQualifier}FAQs] ADD [DateModified] [datetime] NULL
+			ALTER TABLE {databaseOwner}[{objectQualifier}FAQs] ADD [ViewCount] [int] NOT NULL DEFAULT 0
+		END	
+GO
+
+
+if not exists (select * from dbo.sysobjects where id = object_id(N'{databaseOwner}[{objectQualifier}FAQs]') and OBJECTPROPERTY(id, N'IsTable') = 1)
+	BEGIN
+		CREATE TABLE {databaseOwner}[{objectQualifier}FAQs](
+			[ItemID] [int] NOT NULL IDENTITY,	
+			[ModuleID] [int] NOT NULL,
+			[CreatedByUser] [nvarchar] (100) NULL,
+			[CreatedDate] [datetime] NULL,
+			[Question] [ntext] NULL,
+			[Answer] [ntext] NULL,
+			
+			[CategoryId] [int] NULL,
+			[DateModified] [datetime] NULL,
+			[ViewCount] [int] NOT NULL DEFAULT 0
+		)
+		
+		ALTER TABLE {databaseOwner}[{objectQualifier}FAQs] ADD CONSTRAINT [PK_{objectQualifier}FAQs] PRIMARY KEY CLUSTERED  ([ItemID])
+		CREATE NONCLUSTERED INDEX [IX_{objectQualifier}FAQs] ON {databaseOwner}[{objectQualifier}FAQs] ([ModuleID])
+
+		ALTER TABLE {databaseOwner}[{objectQualifier}FAQs] WITH NOCHECK ADD
+		CONSTRAINT [FK_{objectQualifier}FAQs_{objectQualifier}Modules] FOREIGN KEY ([ModuleID]) REFERENCES {databaseOwner}[{objectQualifier}Modules] ([ModuleID]) ON DELETE CASCADE
+	END
+GO
+
+/* =====================================================================================
+/   TABLE: {databaseOwner}{objectQualifier}FAQsCategory
+/  ===================================================================================== */
+
+if not exists (select * from dbo.sysobjects where id = object_id(N'{databaseOwner}[{objectQualifier}FAQsCategory]') and OBJECTPROPERTY(id, N'IsTable') = 1)
+	BEGIN
+		CREATE TABLE {databaseOwner}[{objectQualifier}FAQsCategory](
+			[FaqCategoryId] [int] PRIMARY KEY CLUSTERED IDENTITY NOT NULL,
+			[ModuleId] [int] NOT NULL,
+			[FaqCategoryName] [nvarchar](100) NOT NULL,
+			[FaqCategoryDescription] [nvarchar](250) NOT NULL
+		)
+	END
+GO
+
+/** Drop Existing Stored Procedures **/
+
+if exists (select * from dbo.sysobjects where id = object_id(N'{databaseOwner}[{objectQualifier}AddFAQ]') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
+	drop procedure {databaseOwner}[{objectQualifier}AddFAQ]
+GO
+
+if exists (select * from dbo.sysobjects where id = object_id(N'{databaseOwner}[{objectQualifier}DeleteFAQ]') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
+	drop procedure {databaseOwner}[{objectQualifier}DeleteFAQ]
+GO
+
+if exists (select * from dbo.sysobjects where id = object_id(N'{databaseOwner}[{objectQualifier}GetFAQ]') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
+	drop procedure {databaseOwner}[{objectQualifier}GetFAQ]
+GO
+
+if exists (select * from dbo.sysobjects where id = object_id(N'{databaseOwner}[{objectQualifier}GetFAQs]') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
+	drop procedure {databaseOwner}[{objectQualifier}GetFAQs]
+GO
+
+
+if exists (select * from dbo.sysobjects where id = object_id(N'{databaseOwner}[{objectQualifier}UpdateFAQ]') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
+	drop procedure {databaseOwner}[{objectQualifier}UpdateFAQ]
+GO
+
+
+/****** Object:  Stored Procedure {databaseOwner}{objectQualifier}FAQGet    Script Date: 23. april 2006 ******/
+if exists (select * from dbo.sysobjects where id = object_id(N'{databaseOwner}{objectQualifier}FAQGet') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
+	drop procedure {databaseOwner}[{objectQualifier}FAQGet]
+GO
+
+/****** Object:  Stored Procedure {databaseOwner}{objectQualifier}FAQList    Script Date: 23. april 2006 ******/
+if exists (select * from dbo.sysobjects where id = object_id(N'{databaseOwner}{objectQualifier}FAQList') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
+drop procedure {databaseOwner}[{objectQualifier}FAQList]
+GO
+
+/****** Object:  Stored Procedure {databaseOwner}{objectQualifier}FAQAdd    Script Date: 23. april 2006 ******/
+if exists (select * from dbo.sysobjects where id = object_id(N'{databaseOwner}{objectQualifier}FAQAdd') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
+drop procedure {databaseOwner}[{objectQualifier}FAQAdd]
+GO
+
+/****** Object:  Stored Procedure {databaseOwner}{objectQualifier}FAQUpdate    Script Date: 23. april 2006 ******/
+if exists (select * from dbo.sysobjects where id = object_id(N'{databaseOwner}{objectQualifier}FAQUpdate') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
+drop procedure {databaseOwner}[{objectQualifier}FAQUpdate]
+GO
+
+/****** Object:  Stored Procedure {databaseOwner}{objectQualifier}FAQDelete    Script Date: 23. april 2006 ******/
+if exists (select * from dbo.sysobjects where id = object_id(N'{databaseOwner}{objectQualifier}FAQDelete') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
+drop procedure {databaseOwner}[{objectQualifier}FAQDelete]
+GO
+
+
+/* -------------------------------------------------------------------------------------
+/   Get
+/  ------------------------------------------------------------------------------------- */
+
+CREATE PROCEDURE {databaseOwner}[{objectQualifier}FAQGet]
+(
+	@ItemId   int,
+	@ModuleId int
+)
+AS
+SELECT
+	f.ItemID,
+	f.ModuleID,
+	f.CategoryId,
+	f.Question,
+	f.Answer,
+	[CreatedByUserName] = {objectQualifier}Users.FirstName + ' ' + {objectQualifier}Users.LastName,
+	f.CreatedDate,
+	f.DateModified,
+	f.ViewCount,
+	c.FaqCategoryName,
+	c.FaqCategoryDescription
+	
+FROM {objectQualifier}FAQs f
+left outer join {objectQualifier}FAQsCategory c on f.CategoryId = c.FaqCategoryId
+left outer join {objectQualifier}Users on f.CreatedByUser = {objectQualifier}Users.UserId
+where f.ModuleId = @ModuleId and
+f.ItemId = @ItemId
+GO
+
+
+/* -------------------------------------------------------------------------------------
+/   List 
+/  ------------------------------------------------------------------------------------- */
+
+CREATE PROCEDURE {databaseOwner}[{objectQualifier}FAQList]
+AS
+
+SELECT
+	[ItemId],
+	[ModuleId],
+	[CategoryId],
+	[Question],
+	[Answer],
+	[CreatedByUserName] = {objectQualifier}Users.FirstName + ' ' + {objectQualifier}Users.LastName,
+	[CreatedDate],
+	[DateModified],
+	[ViewCount]
+FROM {objectQualifier}FAQs f
+left outer join {objectQualifier}Users on f.CreatedByUser = {objectQualifier}Users.UserId
+GO
+
+
+/* -------------------------------------------------------------------------------------
+/   Add
+/  ------------------------------------------------------------------------------------- */
+
+
+CREATE PROCEDURE {databaseOwner}[{objectQualifier}FAQAdd]
+	@ModuleId int,
+	@CategoryId int,
+	@Question ntext,
+	@Answer ntext,
+	@CreatedByUser nvarchar,
+	@CreatedDate datetime,
+	@DateModified datetime,
+	@ViewCount int
+AS
+
+INSERT INTO {objectQualifier}FAQs (
+	[ModuleId],
+	[CategoryId],
+	[Question],
+	[Answer],
+	[CreatedByUser],
+	[CreatedDate],
+	[DateModified],
+	[ViewCount]
+) VALUES (
+	@ModuleId,
+	@CategoryId,
+	@Question,
+	@Answer,
+	@CreatedByUser,
+	@CreatedDate,
+	@DateModified,
+	@ViewCount
+)
+
+select SCOPE_IDENTITY()
+GO
+
+
+/* -------------------------------------------------------------------------------------
+/   Update
+/  ------------------------------------------------------------------------------------- */
+
+CREATE PROCEDURE {databaseOwner}[{objectQualifier}FAQUpdate]
+	@ItemId int, 
+	@ModuleId int, 
+	@CategoryId int, 
+	@Question ntext, 
+	@Answer ntext, 
+	@CreatedByUser nvarchar, 
+	@DateModified datetime
+AS
+
+UPDATE {objectQualifier}FAQs SET
+	[CategoryId] = @CategoryId,
+	[Question] = @Question,
+	[Answer] = @Answer,
+	[CreatedByUser] = @CreatedByUser,
+	[DateModified] = @DateModified
+WHERE
+	[ModuleId] = @ModuleId and [ItemId] = @ItemId
+GO
+
+/* -------------------------------------------------------------------------------------
+/   Delete
+/  ------------------------------------------------------------------------------------- */
+
+CREATE PROCEDURE {databaseOwner}[{objectQualifier}FAQDelete]
+	@ItemId int,
+	@ModuleId int
+AS
+
+DELETE FROM {objectQualifier}FAQs
+WHERE
+	[ModuleId] = @ModuleId and [ItemId] = @ItemId
+GO
+
+
+/* =====================================================================================
+/   TABLE: Category
+/  ===================================================================================== */
+
+/****** Object:  Stored Procedure {databaseOwner}{objectQualifier}FAQCategoryGet    Script Date: 23. april 2006 ******/
+if exists (select * from dbo.sysobjects where id = object_id(N'{databaseOwner}{objectQualifier}FAQCategoryGet') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
+drop procedure {databaseOwner}[{objectQualifier}FAQCategoryGet]
+GO
+
+/****** Object:  Stored Procedure {databaseOwner}{objectQualifier}FAQCategoryList    Script Date: 23. april 2006 ******/
+if exists (select * from dbo.sysobjects where id = object_id(N'{databaseOwner}{objectQualifier}FAQCategoryList') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
+drop procedure {databaseOwner}[{objectQualifier}FAQCategoryList]
+GO
+
+/****** Object:  Stored Procedure {databaseOwner}{objectQualifier}FAQCategoryAdd    Script Date: 23. april 2006 ******/
+if exists (select * from dbo.sysobjects where id = object_id(N'{databaseOwner}{objectQualifier}FAQCategoryAdd') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
+drop procedure {databaseOwner}[{objectQualifier}FAQCategoryAdd]
+GO
+
+/****** Object:  Stored Procedure {databaseOwner}{objectQualifier}FAQCategoryUpdate    Script Date: 23. april 2006 ******/
+if exists (select * from dbo.sysobjects where id = object_id(N'{databaseOwner}{objectQualifier}FAQCategoryUpdate') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
+drop procedure {databaseOwner}[{objectQualifier}FAQCategoryUpdate]
+GO
+
+/****** Object:  Stored Procedure {databaseOwner}{objectQualifier}FAQCategoryDelete    Script Date: 23. april 2006 ******/
+if exists (select * from dbo.sysobjects where id = object_id(N'{databaseOwner}{objectQualifier}FAQCategoryDelete') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
+drop procedure {databaseOwner}[{objectQualifier}FAQCategoryDelete]
+GO
+
+/****** Object:  Stored Procedure {databaseOwner}{objectQualifier}FAQCategoryDelete    Script Date: 23. april 2006 ******/
+if exists (select * from dbo.sysobjects where id = object_id(N'{databaseOwner}{objectQualifier}FAQIncrementViewCount') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
+drop procedure {databaseOwner}[{objectQualifier}FAQIncrementViewCount]
+GO
+
+/****** Object:  Stored Procedure {databaseOwner}{objectQualifier}FAQCategoryDelete    Script Date: 23. april 2006 ******/
+if exists (select * from dbo.sysobjects where id = object_id(N'{databaseOwner}{objectQualifier}FAQSearch') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
+drop procedure {databaseOwner}[{objectQualifier}FAQSearch]
+GO
+
+
+
+/* -------------------------------------------------------------------------------------
+/   CategoryGet
+/  ------------------------------------------------------------------------------------- */
+
+CREATE PROCEDURE {databaseOwner}[{objectQualifier}FAQCategoryGet]
+	@FaqCategoryId int,
+	@moduleId int 
+AS
+
+SELECT
+	[FaqCategoryId],
+	[ModuleId],
+	[FaqCategoryName],
+	[FaqCategoryDescription]
+FROM {objectQualifier}FAQsCategory
+WHERE
+	[FaqCategoryId] = @FaqCategoryId
+	AND [moduleid]=@moduleId 
+GO
+
+/* -------------------------------------------------------------------------------------
+/   CategoryList 
+/  ------------------------------------------------------------------------------------- */
+
+CREATE PROCEDURE {databaseOwner}[{objectQualifier}FAQCategoryList]
+(
+	@ModuleID	int
+)
+AS
+
+SELECT
+	[FaqCategoryId],
+	[ModuleId],
+	[FaqCategoryName],
+	[FaqCategoryDescription]
+FROM {objectQualifier}FAQsCategory
+where ModuleId = @ModuleId
+GO
+
+/* -------------------------------------------------------------------------------------
+/   CategoryAdd
+/  ------------------------------------------------------------------------------------- */
+
+CREATE PROCEDURE {databaseOwner}[{objectQualifier}FAQCategoryAdd]
+	@ModuleId int,
+	@FaqCategoryName nvarchar(100),
+	@FaqCategoryDescription nvarchar(250)
+AS
+
+INSERT INTO {objectQualifier}FAQsCategory (
+	[ModuleId],
+	[FaqCategoryName],
+	[FaqCategoryDescription]
+) VALUES (
+	@ModuleId,
+	@FaqCategoryName,
+	@FaqCategoryDescription
+)
+
+select SCOPE_IDENTITY()
+GO
+
+/* -------------------------------------------------------------------------------------
+/   CategoryUpdate
+/  ------------------------------------------------------------------------------------- */
+
+CREATE PROCEDURE {databaseOwner}[{objectQualifier}FAQCategoryUpdate]
+	@FaqCategoryId int, 
+	@ModuleId int, 
+	@FaqCategoryName nvarchar(100), 
+	@FaqCategoryDescription nvarchar(250)
+AS
+
+UPDATE {objectQualifier}FAQsCategory SET
+	[ModuleId] = @ModuleId,
+	[FaqCategoryName] = @FaqCategoryName,
+	[FaqCategoryDescription] = @FaqCategoryDescription
+WHERE
+	[FaqCategoryId] = @FaqCategoryId
+GO
+
+/* -------------------------------------------------------------------------------------
+/   CategoryDelete
+/  ------------------------------------------------------------------------------------- */
+
+CREATE PROCEDURE {databaseOwner}[{objectQualifier}FAQCategoryDelete]
+	@FaqCategoryId int
+AS
+
+DELETE FROM {objectQualifier}FAQsCategory
+WHERE
+	[FaqCategoryId] = @FaqCategoryId
+GO
+
+SET QUOTED_IDENTIFIER OFF 
+GO
+SET ANSI_NULLS ON 
+GO
+
+/* -------------------------------------------------------------------------------------
+/   IncrementViewCount
+/  ------------------------------------------------------------------------------------- */
+
+CREATE PROCEDURE {databaseOwner}[{objectQualifier}FAQIncrementViewCount]
+(
+	@ItemID	int
+)
+AS
+update {objectQualifier}FAQs
+set ViewCount = ViewCount + 1
+where ItemID = @ItemID
+GO
+
+
+/* -------------------------------------------------------------------------------------
+/   FAQSearch
+/  ------------------------------------------------------------------------------------- */
+
+CREATE PROCEDURE {databaseOwner}[{objectQualifier}FAQSearch]
+(
+	@ModuleId	int,
+	@OrderBy	int
+)
+AS
+SELECT
+	f.ItemId,
+	f.ModuleId,
+	f.CategoryId,
+	f.Question,
+	f.Answer,
+	f.CreatedByUser,
+	f.CreatedDate,
+	f.DateModified,
+	f.ViewCount,
+	c.FaqCategoryName,
+	c.FaqCategoryDescription
+FROM {objectQualifier}FAQs f
+left outer join {objectQualifier}FAQsCategory c on
+f.CategoryId = c.FaqCategoryId
+where f.ModuleId = @ModuleId
+ORDER BY
+  CASE WHEN @OrderBy=0 THEN f.DateModified END DESC,
+  CASE WHEN @OrderBy=1 THEN f.DateModified END ASC, 
+  CASE WHEN @OrderBy=2 THEN f.ViewCount END DESC,
+  CASE WHEN @OrderBy=3 THEN f.ViewCount END ASC
+
+GO

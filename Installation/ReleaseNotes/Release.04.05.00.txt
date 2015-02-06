@@ -1,0 +1,31 @@
+﻿<h2>Release notes DNN FAQs 04.05.00</h2>
+<p>FAQs 04.05.00 will work for any DNN version 5.6.1 and up.
+Full details on the changes can be found in great detail at <a href="http://dnnfaqs.codeplex.com/workitem/list/basic">dnnfaqs.codeplex.com</a>.</p>
+<h3>NEW FEATURES</h3>
+<ul>
+	<li>Enhanced sorting setting to display on FAQ creation date as well</li>
+</ul>
+<h3>BUG FIXES</h3>
+<ul>
+	<li>Corrected the SQLProvider scripts for better {databaseOwner} and {obJectQualifier} support</li>
+    <li>Changed lay-out to comply to XHTML standards</li>
+    <li>Removed obsolete text elements from language files</li>
+</ul>
+<h3>ENHANCEMENTS</h3>
+<ul>
+	<li>Added support for DNN 5.x</li>
+    <li>Standardized token names for display</li>
+    <li>Improved display defaults</li>
+    <li>Standardized the action links with standard DNN icons</li>
+</ul>
+<h3>CHANGES</h3>
+<ul>
+    <li>Changed question to max text size of 200 chars. <strong>Please note</strong>: This might truncate very longs questions</li>
+	<li>Updated DNN Installation manifest to DNN 5 standard</li>
+    <li>Changed the source solution to Visual Studio 2010 with full MS Build support</li>
+    <li>Integrated coding. Module now has only 1 .dll</li>
+    <li>Removed the setting for AJAX On/Off, since DNN5 will handle it</li>
+    <li>Table structure is hardened, column types chosen more appropriately</li>
+    <li>Verify that text entered does not contain script</li>
+    <li>Merged the 2 sets of default display templates into 1 set located in settings</li>
+</ul>

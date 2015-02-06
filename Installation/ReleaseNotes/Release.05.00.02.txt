@@ -1,0 +1,8 @@
+﻿<h2>Release notes DNN FAQs 05.00.02</h2>
+<p>FAQs 05.00.02 will work for any DNN version 6.1.0 and up.
+Full details on the changes can be found in great detail at 
+<a href="http://dnnfaq.codeplex.com/workitem/list/basic">dnnfaq.codeplex.com</a>.</p>
+<h3>BUG FIXES</h3>
+<ul>
+    <li>Fixed some SQL dataprovider scripts to make them compliant with latest version of SQL Azure</li>
+</ul>

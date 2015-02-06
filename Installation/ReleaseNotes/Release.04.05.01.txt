@@ -1,0 +1,19 @@
+﻿<h2>Release notes DNN FAQs 04.05.01</h2>
+<p>FAQs 04.05.01 will work for any DNN version 5.6.1 and up.
+Full details on the changes can be found in great detail at <a href="http://dnnfaqs.codeplex.com/workitem/list/basic">dnnfaqs.codeplex.com</a>.</p>
+<h3>BUG FIXES</h3>
+<ul>
+	<li>Corrected typo in text element in settings</li>
+	<li>Date/time of creation/update are saved in export/import</li>
+</ul>
+<h3>ENHANCEMENTS</h3>
+<ul>
+	<li>The XML export is indented XML formatted for better readbility</li>
+	<li>.js file is minified in the PA install pack (not in the source pack)</li>
+	<li>All categories are included in the export, not only the categories used</li>
+</ul>
+<h3>CHANGES</h3>
+<ul>
+    <li>Increased question to max text size of 400 chars.</li>
+    <li>Implemented new version of DNNtcMSBuild for automatic PA and Source packaging</li>
+</ul>

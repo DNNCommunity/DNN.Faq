@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ProjectMetadataInfo xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <ProjectName>dnnfaq</ProjectName>
+  <DefaultIterationLength>14</DefaultIterationLength>
+  <ProjectStart>2011-08-11T00:00:00+02:00</ProjectStart>
+  <IterationList>
+    <IterationMetadataInfo>
+      <Id>11472</Id>
+      <Name>03.01.00</Name>
+      <Path>dnnfaq\03.01.00</Path>
+      <StartDate>2011-07-28T00:00:00</StartDate>
+      <EndDate>2011-08-10T00:00:00</EndDate>
+      <Level>0</Level>
+      <PredecessorId xsi:nil="true" />
+      <ParentId>9758</ParentId>
+      <DurationDays>14</DurationDays>
+    </IterationMetadataInfo>
+    <IterationMetadataInfo>
+      <Id>11473</Id>
+      <Name>04.04.00</Name>
+      <Path>dnnfaq\04.04.00</Path>
+      <StartDate>2011-07-28T00:00:00</StartDate>
+      <EndDate>2011-08-10T00:00:00</EndDate>
+      <Level>0</Level>
+      <PredecessorId xsi:nil="true" />
+      <ParentId>9758</ParentId>
+      <DurationDays>14</DurationDays>
+    </IterationMetadataInfo>
+    <IterationMetadataInfo>
+      <Id>17026</Id>
+      <Name>04.05.00</Name>
+      <Path>dnnfaq\04.05.00</Path>
+      <StartDate>2011-07-28T00:00:00</StartDate>
+      <EndDate>2011-08-10T00:00:00</EndDate>
+      <Level>0</Level>
+      <PredecessorId xsi:nil="true" />
+      <ParentId>9758</ParentId>
+      <DurationDays>14</DurationDays>
+    </IterationMetadataInfo>
+    <IterationMetadataInfo>
+      <Id>17027</Id>
+      <Name>05.00.00</Name>
+      <Path>dnnfaq\05.00.00</Path>
+      <StartDate>2011-08-11T00:00:00</StartDate>
+      <EndDate>2011-08-24T00:00:00</EndDate>
+      <Level>0</Level>
+      <PredecessorId xsi:nil="true" />
+      <ParentId>9758</ParentId>
+      <DurationDays>14</DurationDays>
+    </IterationMetadataInfo>
+    <IterationMetadataInfo>
+      <Id>17047</Id>
+      <Name>04.05.01</Name>
+      <Path>dnnfaq\04.05.01</Path>
+      <StartDate>2011-07-28T00:00:00</StartDate>
+      <EndDate>2011-08-10T00:00:00</EndDate>
+      <Level>0</Level>
+      <PredecessorId xsi:nil="true" />
+      <ParentId>9758</ParentId>
+      <DurationDays>14</DurationDays>
+    </IterationMetadataInfo>
+    <IterationMetadataInfo>
+      <Id>17048</Id>
+      <Name>05.01.00</Name>
+      <Path>dnnfaq\05.01.00</Path>
+      <StartDate>2011-07-28T00:00:00</StartDate>
+      <EndDate>2011-08-10T00:00:00</EndDate>
+      <Level>0</Level>
+      <PredecessorId xsi:nil="true" />
+      <ParentId>9758</ParentId>
+      <DurationDays>14</DurationDays>
+    </IterationMetadataInfo>
+  </IterationList>
+</ProjectMetadataInfo>

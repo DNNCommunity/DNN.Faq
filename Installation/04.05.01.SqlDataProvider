@@ -1,0 +1,13 @@
+﻿/****
+SqlDataProvider script
+
+Note: 
+To manually execute this script you must  perform a search and replace operation for {databaseOwner} and {objectQualifier}  
+
+***/
+
+/***** Change the question column to a bit bigger *****/
+
+ALTER TABLE {databaseOwner}[{objectQualifier}FAQs]  
+ALTER COLUMN [Question] NVARCHAR(400) NOT NULL
+GO

@@ -1,0 +1,13 @@
+﻿<h2>Release notes DNN FAQs 05.01.01</h2>
+<p>FAQs 05.01.00 will work for any DNN version 7.0.6 and up.
+Full details on the changes can be found in great detail at 
+<a href="http://dnnfaq.codeplex.com/workitem/list/basic">dnnfaq.codeplex.com</a>.</p>
+<h3>BUG FIXES</h3>
+<ul>
+    <li>Search items indexed clean of HTML tags</li>
+	<li>Icon URL for edit question corrected</li>
+</ul>
+<h3>CHANGES</h3>
+<ul>
+	<li>Search item date changed from createdate/time to modify date/time </li>
+</ul>

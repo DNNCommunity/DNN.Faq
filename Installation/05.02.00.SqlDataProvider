@@ -1,0 +1,56 @@
+﻿/* 
+SqlDataProvider script DNN_FAQ 05.01.02
+
+Note: 
+To manually execute this script you must perform a 
+search and replace operation for {databaseOwner} and {objectQualifier}  
+
+*/
+
+/* ------------------------------------------------
+/   To be sure to have the search items reindexed
+/ ------------------------------------------------- */
+
+UPDATE {databaseOwner}[{objectQualifier}FAQs] 
+SET [DateModified] = GETDATE()
+
+GO
+
+/* ------------------------------------------------
+/   Correct UserID parameter size
+/ ------------------------------------------------- */
+
+if exists (select * from dbo.sysobjects where id = object_id(N'{databaseOwner}{objectQualifier}FAQUpdate') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
+DROP PROCEDURE {databaseOwner}[{objectQualifier}FAQUpdate]
+go
+
+CREATE PROCEDURE {databaseOwner}[{objectQualifier}FAQUpdate]
+	@ItemId int, 
+	@ModuleId int, 
+	@CategoryId int, 
+	@Question ntext, 
+	@Answer ntext, 
+	@CreatedByUser nvarchar(100), 
+	@DateModified datetime,
+	@ViewOrder int,
+	@FaqHide bit,
+	@PublishDate datetime,
+	@ExpireDate datetime
+AS
+
+UPDATE {databaseOwner}[{objectQualifier}FAQs] SET
+	[CategoryId] = @CategoryId,
+	[Question] = @Question,
+	[Answer] = @Answer,
+	[CreatedByUser] = @CreatedByUser,
+	[DateModified] = @DateModified,
+	[ViewOrder] = @ViewOrder,
+	[FaqHide] = @FaqHide,
+	[PublishDate] = @PublishDate,
+	[ExpireDate] = @ExpireDate
+WHERE
+	[ModuleId] = @ModuleId and [ItemId] = @ItemId
+
+GO
+
+GO

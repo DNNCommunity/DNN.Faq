@@ -1,0 +1,5 @@
+﻿'Remove old versions and old files of DNN FAQs
+Install\Module\FAQs_04.04.00_Install.resources
+Install\Module\FAQs_04.05.00_Install.zip
+Install\Module\FAQs_04.05.00_Install.resources
+Install\Module\FAQs_04.05.00_Source.zip

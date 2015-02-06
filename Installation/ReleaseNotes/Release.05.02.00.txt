@@ -1,0 +1,14 @@
+﻿<h3>Release notes DNN FAQs 05.02.00</h3>
+<p>FAQs 05.02.00 will work for any DNN version 7.2.1 and up. Full details on the changes can be found in great detail at <a href="http://dnnfaq.codeplex.com/workitem/list/basic">dnnfaq.codeplex.com</a>.</p>
+<p><strong>BUG FIXES</strong></p>
+<ul>
+    <li>Search items indexed clean of HTML tags</li>
+    <li>Icons URL's for edit and ordering questions corrected</li>
+    <li>UserID saving in question corrected</li>
+	<li>Better Ajax display of answer, prevent html blur</li>
+</ul>
+<p><strong>CHANGES</strong></p>
+<ul>
+	<li>Search item date changed from create date/time to modify date/time</li>
+	<li>Search now in line with new incremental search of DNN 7.2.x</li>
+</ul>

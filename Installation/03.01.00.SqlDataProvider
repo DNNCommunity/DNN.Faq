@@ -1,0 +1,159 @@
+﻿/************************************************************/
+/*****              SqlDataProvider                     *****/
+/*****                                                  *****/
+/*****                                                  *****/
+/***** Note: To manually execute this script you must   *****/
+/*****       perform a search and replace operation     *****/
+/*****       for {databaseOwner} and {objectQualifier}  *****/
+/*****                                                  *****/
+/************************************************************/
+
+/** CREATE FAQs Table **/
+
+if not exists (SELECT * FROM dbo.sysobjects WHERE id = object_id(N'{databaseOwner}[{objectQualifier}FAQs]') and OBJECTPROPERTY(id, N'IsTable') = 1)
+    BEGIN
+        CREATE TABLE {databaseOwner}[{objectQualifier}FAQs]
+        (
+            [ItemID] [int] NOT NULL IDENTITY,
+            [ModuleID] [int] NOT NULL,
+            [CreatedByUser] [nvarchar] (100) NULL,
+            [CreatedDate] [datetime] NULL,
+            [Question] [ntext] NULL,
+            [Answer] [ntext] NULL
+        )
+
+        ALTER TABLE {databaseOwner}[{objectQualifier}FAQs] ADD CONSTRAINT [PK_{objectQualifier}FAQs] PRIMARY KEY CLUSTERED  ([ItemID])
+        CREATE NONCLUSTERED INDEX [IX_{objectQualifier}FAQs] ON {databaseOwner}[{objectQualifier}FAQs] ([ModuleID])
+
+        ALTER TABLE {databaseOwner}[{objectQualifier}FAQs] WITH NOCHECK ADD
+        CONSTRAINT [FK_{objectQualifier}FAQs_{objectQualifier}Modules] FOREIGN KEY ([ModuleID]) REFERENCES {databaseOwner}[{objectQualifier}Modules] ([ModuleID]) ON DELETE CASCADE 
+    END
+GO
+
+
+/** Drop Existing Stored Procedures **/
+
+if exists (SELECT * FROM dbo.sysobjects WHERE id = object_id(N'{databaseOwner}[{objectQualifier}AddFAQ]') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
+    DROP PROCEDURE {databaseOwner}{objectQualifier}AddFAQ
+GO
+
+if exists (SELECT * FROM dbo.sysobjects WHERE id = object_id(N'{databaseOwner}[{objectQualifier}DeleteFAQ]') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
+    DROP PROCEDURE {databaseOwner}{objectQualifier}DeleteFAQ
+GO
+
+if exists (SELECT * FROM dbo.sysobjects WHERE id = object_id(N'{databaseOwner}[{objectQualifier}GetFAQ]') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
+    DROP PROCEDURE {databaseOwner}{objectQualifier}GetFAQ
+GO
+
+if exists (SELECT * FROM dbo.sysobjects WHERE id = object_id(N'{databaseOwner}[{objectQualifier}GetFAQs]') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
+    DROP PROCEDURE {databaseOwner}{objectQualifier}GetFAQs
+GO
+
+
+if exists (SELECT * FROM dbo.sysobjects WHERE id = object_id(N'{databaseOwner}[{objectQualifier}UpdateFAQ]') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
+    DROP PROCEDURE {databaseOwner}{objectQualifier}UpdateFAQ
+GO
+
+
+/** CREATE Stored Procedures **/
+
+CREATE PROCEDURE {databaseOwner}{objectQualifier}AddFAQ
+
+    @ModuleId int,
+    @UserName nvarchar(100),
+    @Question ntext,
+    @Answer   ntext
+
+AS
+
+insert into {objectQualifier}FAQs (
+    CreatedByUser,
+    CreatedDate,
+    ModuleId,
+    Question,
+    Answer
+)
+VALUES (
+    @UserName,
+    getdate(),
+    @ModuleId,
+    @Question,
+    @Answer
+)
+
+SELECT SCOPE_IDENTITY()
+
+GO
+
+CREATE PROCEDURE {databaseOwner}{objectQualifier}DeleteFAQ
+
+    @ItemId int
+
+AS
+
+DELETE
+FROM {objectQualifier}FAQs
+WHERE  ItemId = @ItemId
+
+GO
+
+CREATE PROCEDURE {databaseOwner}{objectQualifier}GetFAQ
+
+    @ItemId   int,
+    @ModuleId int
+
+AS
+
+SELECT 
+    ItemId,
+    ModuleId,
+    Question,
+    Answer,
+    [CreatedByUser] = {objectQualifier}Users.FirstName + ' ' + {objectQualifier}Users.LastName,
+    {objectQualifier}FAQs.CreatedDate
+FROM {objectQualifier}FAQs
+left outer join {objectQualifier}Users on {objectQualifier}FAQs.CreatedByUser = {objectQualifier}Users.UserId
+WHERE  ItemId = @ItemId
+and    ModuleId = @ModuleId
+
+GO
+
+CREATE PROCEDURE {databaseOwner}{objectQualifier}GetFAQs
+
+    @ModuleId int
+
+AS
+
+SELECT 
+    ItemId,
+    ModuleId,
+    CreatedDate,
+    CreatedByUser,
+    Question,
+    Answer
+FROM {objectQualifier}FAQs
+WHERE  ModuleId = @ModuleId
+
+GO
+
+CREATE PROCEDURE {databaseOwner}{objectQualifier}UpdateFAQ
+
+    @ItemId    int,
+    @UserName  nvarchar(100),
+    @Question  ntext,
+    @Answer    ntext
+
+AS
+
+update {objectQualifier}FAQs
+set    Question = @Question,
+       Answer = @Answer,
+       CreatedByUser = @UserName,
+       CreatedDate = getdate()
+WHERE  ItemId = @ItemId
+
+GO
+
+/************************************************************/
+/*****              SqlDataProvider                     *****/
+/************************************************************/

@@ -1,0 +1,17 @@
+﻿'Remove old versions and old files of DNN FAQs
+Install\Module\FAQs_04.04.00_Install.zip
+Install\Module\FAQs_04.04.00_Source.zip
+Install\Module\FAQs_04.04.00_Source.resources
+Bin\DotNetNuke.Modules.FAQs.SqlDataProvider.dll
+'
+'Tidy up debug and old files
+Bin\DotNetNuke.Modules.FAQs.pdb
+Bin\DotNetNuke.Modules.FAQs.xml
+Bin\DotNetNuke.Modules.FAQs.SqlDataProvider.pdb
+Bin\DotNetNuke.Modules.FAQs.SqlDataProvider.xml
+'
+'Tidy up redundant or moved files
+DesktopModules\FAQs\AjaxFaq.js
+DesktopModules\FAQs\03.01.00.SqlDataProvider
+DesktopModules\FAQs\03.03.03.SqlDataProvider
+DesktopModules\FAQs\Uninstall.SqlDataProvider

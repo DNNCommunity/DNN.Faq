@@ -1,0 +1,465 @@
+﻿/****
+SqlDataProvider script DNN_FAQ 05.00.01
+
+Note: 
+To manually execute this script you must  perform a search and replace operation for {databaseOwner} and {objectQualifier}  
+
+***/
+ALTER TABLE {databaseOwner}[{objectQualifier}FAQs]
+ADD [FaqHide] bit NOT NULL DEFAULT (0)
+GO
+
+ALTER TABLE {databaseOwner}[{objectQualifier}FAQs]
+ADD [PublishDate] DATETIME NULL 
+GO
+
+ALTER TABLE {databaseOwner}[{objectQualifier}FAQs]
+ADD [ExpireDate] DATETIME NULL 
+GO
+
+ALTER TABLE {databaseOwner}[{objectQualifier}FAQsCategory]
+ADD ViewOrder INT NOT NULL DEFAULT (0)
+GO
+
+ALTER TABLE {databaseOwner}[{objectQualifier}FAQsCategory]
+ALTER COLUMN FaqCategoryParentId INT NULL
+GO
+
+UPDATE {databaseOwner}[{objectQualifier}FAQsCategory]
+SET FaqCategoryParentId = NULL
+WHERE FaqCategoryParentId = 0
+
+/* -------------------------------------------------------------------------------------
+/   FaqAdd
+/  ------------------------------------------------------------------------------------- */
+
+if exists (select * from dbo.sysobjects where id = object_id(N'{databaseOwner}{objectQualifier}FAQAdd') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
+DROP PROCEDURE {databaseOwner}[{objectQualifier}FAQAdd]
+go
+
+CREATE PROCEDURE {databaseOwner}[{objectQualifier}FAQAdd]
+(
+	@ModuleId int,
+	@CategoryId int,
+	@Question ntext,
+	@Answer ntext,
+	@CreatedByUser nvarchar,
+	@CreatedDate datetime,
+	@DateModified datetime,
+	@ViewCount int,
+	@ViewOrder int,
+	@FaqHide bit,
+	@PublishDate datetime,
+	@ExpireDate datetime
+)
+AS
+
+INSERT INTO {databaseOwner}[{objectQualifier}FAQs] (
+	[ModuleId],
+	[CategoryId],
+	[Question],
+	[Answer],
+	[CreatedByUser],
+	[CreatedDate],
+	[DateModified],
+	[ViewCount],
+	[ViewOrder],
+	[FaqHide],
+	[PublishDate],
+	[ExpireDate]
+) VALUES (
+	@ModuleId,
+	@CategoryId,
+	@Question,
+	@Answer,
+	@CreatedByUser,
+	@CreatedDate,
+	@DateModified,
+	@ViewCount,
+	@ViewOrder,
+	@FaqHide,
+	@PublishDate,
+	@ExpireDate
+)
+
+select SCOPE_IDENTITY()
+go
+
+/* -------------------------------------------------------------------------------------
+/   FAQUpdate
+/  ------------------------------------------------------------------------------------- */
+if exists (select * from dbo.sysobjects where id = object_id(N'{databaseOwner}{objectQualifier}FAQUpdate') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
+DROP PROCEDURE {databaseOwner}[{objectQualifier}FAQUpdate]
+go
+
+CREATE PROCEDURE {databaseOwner}[{objectQualifier}FAQUpdate]
+	@ItemId int, 
+	@ModuleId int, 
+	@CategoryId int, 
+	@Question ntext, 
+	@Answer ntext, 
+	@CreatedByUser nvarchar, 
+	@DateModified datetime,
+	@ViewOrder int,
+	@FaqHide bit,
+	@PublishDate datetime,
+	@ExpireDate datetime
+AS
+
+UPDATE {databaseOwner}[{objectQualifier}FAQs] SET
+	[CategoryId] = @CategoryId,
+	[Question] = @Question,
+	[Answer] = @Answer,
+	[CreatedByUser] = @CreatedByUser,
+	[DateModified] = @DateModified,
+	[ViewOrder] = @ViewOrder,
+	[FaqHide] = @FaqHide,
+	[PublishDate] = @PublishDate,
+	[ExpireDate] = @ExpireDate
+WHERE
+	[ModuleId] = @ModuleId and [ItemId] = @ItemId
+
+GO
+
+/* -------------------------------------------------------------------------------------
+/   FAQGet
+/  ------------------------------------------------------------------------------------- */
+if exists (select * from dbo.sysobjects where id = object_id(N'{databaseOwner}{objectQualifier}FAQGet') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
+DROP PROCEDURE {databaseOwner}[{objectQualifier}FAQGet]
+go
+
+
+CREATE PROCEDURE {databaseOwner}[{objectQualifier}FAQGet]
+(
+	@ItemId   int,
+	@ModuleId int
+)
+AS
+SELECT
+	f.ItemID,
+	f.ModuleID,
+	f.CategoryId,
+	f.Question,
+	f.Answer,
+	u.Displayname AS CreatedByUserName,
+	f.CreatedDate,
+	f.DateModified,
+	f.ViewCount,
+	f.ViewOrder,
+	f.FaqHide,
+	f.PublishDate,
+	f.ExpireDate,
+	c.FaqCategoryName,
+	c.FaqCategoryDescription
+	
+FROM {databaseOwner}[{objectQualifier}FAQs] f
+LEFT OUTER JOIN {databaseOwner}[{objectQualifier}FAQsCategory] c on f.CategoryId = c.FaqCategoryId
+LEFT OUTER JOIN {databaseOwner}[{objectQualifier}Users] u on f.CreatedByUser = u.UserId
+where f.ModuleId = @ModuleId and
+f.ItemId = @ItemId
+
+GO
+
+/* -------------------------------------------------------------------------------------
+/   FaqSearch
+/  ------------------------------------------------------------------------------------- */
+
+if exists (select * from dbo.sysobjects where id = object_id(N'{databaseOwner}{objectQualifier}FAQSearch') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
+drop procedure {databaseOwner}[{objectQualifier}FAQSearch]
+GO
+
+CREATE PROCEDURE {databaseOwner}[{objectQualifier}FAQSearch]
+(
+	@ModuleId	int,
+	@OrderBy	int,
+	@ShowHidden bit
+)
+AS
+SELECT
+	f.ItemId,
+	f.ModuleId,
+	f.CategoryId,
+	f.Question,
+	f.Answer,
+	f.CreatedByUser,
+	u.Displayname AS CreatedByUserName,
+	f.CreatedDate,
+	f.DateModified,
+	f.ViewCount,
+	f.FaqHide,
+	f.PublishDate,
+	f.ExpireDate,
+	f.ViewOrder,
+	c.FaqCategoryName,
+	c.FaqCategoryDescription
+FROM {databaseOwner}[{objectQualifier}FAQs] f
+left outer join {databaseOwner}[{objectQualifier}FAQsCategory] c on f.CategoryId = c.FaqCategoryId
+left outer join {databaseOwner}[{objectQualifier}Users] U on f.CreatedByUser = U.UserId
+where f.ModuleId = @ModuleId
+and (@ShowHidden = 1 OR f.FaqHide = 0)
+and ((f.PublishDate IS NULL AND f.ExpireDate IS NULL) OR
+     (f.PublishDate IS NULL AND f.ExpireDate >= DATEADD(dd, 0, DATEDIFF(dd, 0, GETDATE()))) OR
+     (f.PublishDate < GetDate() AND f.ExpireDate IS NULL) OR
+     (f.PublishDate < GetDate() AND f.ExpireDate >= DATEADD(dd, 0, DATEDIFF(dd, 0, GETDATE()))) OR
+	 (@ShowHidden = 1)
+)
+ORDER BY
+  CASE WHEN @OrderBy=0 THEN f.DateModified END DESC,
+  CASE WHEN @OrderBy=1 THEN f.DateModified END ASC, 
+  CASE WHEN @OrderBy=2 THEN f.ViewCount END DESC,
+  CASE WHEN @OrderBy=3 THEN f.ViewCount END ASC,
+  CASE WHEN @OrderBy=4 THEN f.CreatedDate END DESC,
+  CASE WHEN @OrderBy=5 THEN f.CreatedDate END ASC,
+  CASE WHEN @OrderBy=6 THEN f.ViewOrder END ASC
+GO
+
+
+
+/* -------------------------------------------------------------------------------------
+/   FAQCategoryListHierarchical
+/  ------------------------------------------------------------------------------------- */
+
+if exists (select * from dbo.sysobjects where id = object_id(N'{databaseOwner}{objectQualifier}FAQCategoryListHierarchical') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
+DROP PROCEDURE {databaseOwner}[{objectQualifier}FAQCategoryListHierarchical]
+go
+
+CREATE PROCEDURE {databaseOwner}[{objectQualifier}FAQCategoryListHierarchical]
+(
+	@ModuleID	int,
+	@OnlyUsedCategories   bit
+)
+AS
+BEGIN
+	WITH cte ([FaqCategoryParentId], [FaqCategoryId], [ModuleId], [FaqCategoryName], [FaqcategoryDescription], [Level], [ViewOrder], [Sort] )
+	AS
+	(
+		-- Anchor member definition
+		SELECT e.FaqCategoryParentId, e.FaqCategoryId, e.ModuleId,  e.FaqCategoryName, e. FaqcategoryDescription, 0 AS [Level], e.ViewOrder, 
+			RIGHT(REPLICATE('0', 8) + CAST(e.ViewOrder AS VARCHAR(MAX)),8) as [Sort]
+		FROM {databaseOwner}[{objectQualifier}FAQsCategory] AS e
+		WHERE e.FaqCategoryParentId IS NULL
+		UNION ALL
+		-- Recursive member definition
+		SELECT e.FaqCategoryParentId, e.FaqCategoryId, e.ModuleId, e.FaqCategoryName, e. FaqcategoryDescription, [Level] + 1 AS [Level], e.ViewOrder, 
+		   CAST(d.Sort + '/' + 
+				RIGHT(REPLICATE('0', 8) + CAST(e.FaqCategoryparentId AS VARCHAR(MAX)),8) + '-' +  
+				RIGHT(REPLICATE('0', 3) + CAST(e.ViewOrder AS VARCHAR(MAX)) ,3)
+		   AS VARCHAR(MAX)) AS [Sort]
+		FROM {databaseOwner}[{objectQualifier}FAQsCategory] AS e
+		INNER JOIN cte AS d
+			ON e.FaqCategoryParentId = d.FaqCategoryId
+
+	)
+	-- Statement that executes the CTE
+	SELECT CASE WHEN cte.FaqCategoryParentId IS NULL THEN 0 ELSE cte.FaqCategoryParentId END AS [FaqCategoryParentId], [FaqCategoryId], [ModuleId], [FaqCategoryName], [FaqcategoryDescription], [Level], [ViewOrder]
+	FROM cte 
+	WHERE cte.ModuleId =  @ModuleId
+	AND (cte.FaqCategoryId IN (SELECT CategoryId FROM {databaseOwner}[{objectQualifier}FAQs]) OR @OnlyUsedCategories = 0)
+	order by [Sort]
+END
+GO
+
+/* -------------------------------------------------------------------------------------
+/   FAQCategoryReorder
+/  ------------------------------------------------------------------------------------- */
+if exists (select * from dbo.sysobjects where id = object_id(N'{databaseOwner}{objectQualifier}FAQCategoryReorder') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
+drop procedure {databaseOwner}[{objectQualifier}FAQCategoryReorder]
+GO
+
+CREATE PROCEDURE {databaseOwner}[{objectQualifier}FAQCategoryReorder]
+(
+	@FAQCategoryParentId int,
+	@ModuleId int
+)
+AS
+
+/* Renumber ViewOrder in FAQsCategory */
+WITH tmpReorder(ViewOrder,FAQCategoryId) AS
+(
+	SELECT TOP 1000 row_number() OVER (ORDER BY f.ViewOrder) as rank, f.FAQCategoryId
+	FROM {databaseOwner}[{objectQualifier}FAQsCategory] f
+	WHERE f.ModuleId = @ModuleId
+	AND f.FaqCategoryParentId = @FaqCategoryParentId
+	ORDER BY rank 
+)
+UPDATE {databaseOwner}[{objectQualifier}FAQsCategory] 
+	SET ViewOrder = (SELECT ViewOrder FROM tmpReorder r WHERE r.FAQCategoryId = {databaseOwner}[{objectQualifier}FAQsCategory].FAQCategoryId)
+	WHERE ModuleId = @ModuleId
+	AND FaqCategoryParentId = @FaqCategoryParentId
+
+GO
+
+/* -------------------------------------------------------------------------------------
+/   FAQCategoryReorderRoot
+/  ------------------------------------------------------------------------------------- */
+if exists (select * from dbo.sysobjects where id = object_id(N'{databaseOwner}{objectQualifier}FAQCategoryReorderRoot') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
+drop procedure {databaseOwner}[{objectQualifier}FAQCategoryReorderRoot]
+GO
+
+CREATE PROCEDURE {databaseOwner}[{objectQualifier}FAQCategoryReorderRoot]
+(
+	@ModuleId int
+)
+AS
+
+/* Renumber ViewOrder in FAQsCategory */
+WITH tmpReorder(ViewOrder,FAQCategoryId) AS
+(
+	SELECT TOP 1000 row_number() OVER (ORDER BY f.ViewOrder) as rank, f.FAQCategoryId
+	FROM {databaseOwner}[{objectQualifier}FAQsCategory] f
+	WHERE f.ModuleId = @ModuleId
+	AND f.FaqCategoryParentId IS NULL
+	ORDER BY rank 
+)
+UPDATE {databaseOwner}[{objectQualifier}FAQsCategory] 
+	SET ViewOrder = (SELECT ViewOrder FROM tmpReorder r WHERE r.FAQCategoryId = {databaseOwner}[{objectQualifier}FAQsCategory].FAQCategoryId)
+	WHERE ModuleId = @ModuleId
+	AND FaqCategoryParentId IS NULL
+
+GO
+
+/* -------------------------------------------------------------------------------------
+/   FaqCategoryAdd
+/  ------------------------------------------------------------------------------------- */
+
+if exists (select * from dbo.sysobjects where id = object_id(N'{databaseOwner}{objectQualifier}FAQCategoryAdd') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
+DROP PROCEDURE {databaseOwner}[{objectQualifier}FAQCategoryAdd]
+go
+
+CREATE PROCEDURE {databaseOwner}[{objectQualifier}FAQCategoryAdd]
+(
+	@ModuleId int,
+	@FaqCategoryParentId int,
+	@FaqCategoryName nvarchar(100),
+	@FaqCategoryDescription nvarchar(250),
+	@ViewOrder int
+)
+AS
+INSERT INTO {databaseOwner}[{objectQualifier}FAQsCategory] (
+	[ModuleId],
+	[FaqCategoryParentId],
+	[FaqCategoryName],
+	[FaqCategoryDescription],
+	[ViewOrder]
+) VALUES (
+	@ModuleId,
+	CASE WHEN @FaqCategoryParentId = 0 THEN NULL ELSE @FaqCategoryParentId END,
+	@FaqCategoryName,
+	@FaqCategoryDescription,
+	@ViewOrder
+)
+
+select SCOPE_IDENTITY()
+go
+
+
+/* -------------------------------------------------------------------------------------
+/   FaqCategoryDelete
+/  ------------------------------------------------------------------------------------- */
+
+if exists (select * from dbo.sysobjects where id = object_id(N'{databaseOwner}{objectQualifier}FAQCategoryDelete') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
+DROP PROCEDURE {databaseOwner}[{objectQualifier}FAQCategoryDelete]
+go
+
+CREATE PROCEDURE {databaseOwner}[{objectQualifier}FAQCategoryDelete]
+(
+	@FaqCategoryId int
+)
+AS
+
+DELETE FROM {databaseOwner}[{objectQualifier}FAQsCategory]
+WHERE
+	[FaqCategoryId] = @FaqCategoryId
+
+go
+
+/* -------------------------------------------------------------------------------------
+/   FaqCategoryGet
+/  ------------------------------------------------------------------------------------- */
+
+if exists (select * from dbo.sysobjects where id = object_id(N'{databaseOwner}{objectQualifier}FAQCategoryGet') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
+DROP PROCEDURE {databaseOwner}[{objectQualifier}FAQCategoryGet]
+go
+
+
+CREATE PROCEDURE {databaseOwner}[{objectQualifier}FAQCategoryGet]
+(
+	@FaqCategoryId int,
+	@moduleId int 
+)
+AS
+SELECT
+	[FaqCategoryId],
+	[ModuleId],
+	CASE WHEN [FaqCategoryParentId] IS NULL THEN 0 ELSE [FaqCategoryParentId] END AS [FaqCategoryParentId],
+	[FaqCategoryName],
+	[FaqCategoryDescription],
+	0 As [Level],
+	[ViewOrder]
+FROM {databaseOwner}[{objectQualifier}FAQsCategory]
+WHERE
+	[FaqCategoryId] = @FaqCategoryId
+	AND [moduleid]=@moduleId 
+
+go
+
+/* -------------------------------------------------------------------------------------
+/   FaqCategoryList 
+/  ------------------------------------------------------------------------------------- */
+
+if exists (select * from dbo.sysobjects where id = object_id(N'{databaseOwner}{objectQualifier}FAQCategoryList') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
+DROP PROCEDURE {databaseOwner}[{objectQualifier}FAQCategoryList]
+go
+
+
+CREATE PROCEDURE {databaseOwner}[{objectQualifier}FAQCategoryList]
+(
+	@ModuleID	int,
+	@OnlyUsedCategories   bit
+)
+AS
+
+SELECT
+	[FaqCategoryId],
+	[ModuleId],
+	CASE WHEN [FaqCategoryParentId] IS NULL THEN 0 ELSE [FaqCategoryParentId] END AS [FaqCategoryParentId],
+	[FaqCategoryName],
+	[FaqCategoryDescription],
+	0 As [Level],
+	[ViewOrder]
+FROM {databaseOwner}[{objectQualifier}FAQsCategory]
+WHERE [ModuleId] = @ModuleId
+AND ([FaqCategoryId] IN (SELECT CategoryId FROM {databaseOwner}[{objectQualifier}FAQs]) OR @OnlyUsedCategories=0)
+
+go
+
+/* -------------------------------------------------------------------------------------
+/   FaqCategoryUpdate
+/  ------------------------------------------------------------------------------------- */
+
+if exists (select * from dbo.sysobjects where id = object_id(N'{databaseOwner}{objectQualifier}FaqCategoryUpdate') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
+DROP PROCEDURE {databaseOwner}[{objectQualifier}FAQCategoryUpdate]
+go
+
+
+CREATE PROCEDURE {databaseOwner}[{objectQualifier}FAQCategoryUpdate]
+(
+	@FaqCategoryId int, 
+	@ModuleId int, 
+	@FaqCategoryParentId int,
+	@FaqCategoryName nvarchar(100), 
+	@FaqCategoryDescription nvarchar(250),
+	@ViewOrder int
+)
+AS
+UPDATE {databaseOwner}[{objectQualifier}FAQsCategory] SET
+	[ModuleId] = @ModuleId,
+	[FaqCategoryParentId] = (CASE WHEN @FaqCategoryParentId = 0 THEN NULL ELSE @FaqCategoryParentId END),
+	[FaqCategoryName] = @FaqCategoryName,
+	[FaqCategoryDescription] = @FaqCategoryDescription,
+	[ViewOrder] = @ViewOrder
+WHERE
+	[FaqCategoryId] = @FaqCategoryId
+
+go
+

@@ -1,0 +1,201 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="AddContent.Action" xml:space="preserve">
+    <value>Add New FAQ</value>
+  </data>
+  <data name="SelectCategory.Text" xml:space="preserve">
+    <value>&lt;Select Category&gt;</value>
+  </data>
+  <data name="OrderByDateNew.Text" xml:space="preserve">
+    <value>Date (newest first)</value>
+  </data>
+  <data name="OrderByDateOld.Text" xml:space="preserve">
+    <value>Date (oldest first)</value>
+  </data>
+  <data name="OrderByPopularityLow.Text" xml:space="preserve">
+    <value>Popularity (lowest first)</value>
+  </data>
+  <data name="OrderByPopularityHigh.Text" xml:space="preserve">
+    <value>Popularity (highest first)</value>
+  </data>
+  <data name="OrderBy.Text" xml:space="preserve">
+    <value>&lt;Order By&gt;</value>
+  </data>
+  <data name="SearchFieldTitle.Text" xml:space="preserve">
+    <value>Search</value>
+  </data>
+  <data name="ManageCategories.Text" xml:space="preserve">
+    <value>Manage Categories</value>
+  </data>
+  <data name="ModuleHelp.Text" xml:space="preserve">
+    <value>&lt;h1&gt;About The FAQs Module&lt;/h1&gt;
+
+&lt;p&gt;The FAQs Module allows Authorized Users to manage a list of Frequently Asked Questions and their corresponding answers. The question is displayed as a link, requiring the user to click on a question to view the corresponding answer.&lt;/p&gt; 
+&lt;p&gt;The FAQs Module also supports organizing Frequently Asked Questions into Categories. But you can still add Frequently Asked Questions without specifying categories if you want.&lt;/p&gt;
+&lt;p&gt;FAQs also supports AJAX functionality to display the answer when
+the user clicks on a question. The old functionality of using Post back is still supported as well. &lt;/p&gt;
+&lt;p&gt;Frequently Asked Questions can be displayed to the user in a sorted order (Ascending or Descending) based on popularity or date, also specifiable from the Module Settings.&lt;/p&gt; 
+&lt;p&gt;A template for both the Question and the Answer can also be specified in Module Settings in order to have a customizable look and feel for the Frequently Asked Questions (default templates are provided).&lt;/p&gt; 
+&lt;p&gt;A number of available tokens (like question, answer, category, date added, date modified, view count, etc...) can be used when creating the templates.&lt;/p&gt;
+&lt;p&gt;Also a Loading Template is used to display something like "Loading..." when the user clicks on a Question (in AJAX mode) until the Answer is fully loaded and displayed (a default template is also provided).&lt;/p&gt; 
+&lt;p&gt;This version of FAQs Module (03.03.03) can smoothly upgrade the older core FAQs Module (version 03.01.00) all you need to do is to upload the new Module Definition.&lt;/p&gt;
+&lt;h1&gt;Add a Category&lt;/h1&gt;
+&lt;ol&gt;&lt;li&gt;Add an &lt;b&gt;FAQs&lt;/b&gt; module, or go to an existing &lt;b&gt;FAQs&lt;/b&gt; module. &lt;/li&gt;
+&lt;li&gt;Click &lt;b&gt;Manage Categories&lt;/b&gt;. &lt;/li&gt;
+&lt;li&gt;Click &lt;b&gt;Add New&lt;/b&gt;. &lt;/li&gt;
+&lt;li&gt;At &lt;b&gt;Category Name&lt;/b&gt;, enter the category name.&lt;/li&gt;
+&lt;li&gt;At &lt;b&gt;Category Description&lt;/b&gt;, enter a category description.&lt;/li&gt;
+&lt;li&gt;Click &lt;b&gt;Update&lt;/b&gt;.&lt;/li&gt;&lt;/ol&gt;
+&lt;h1&gt;Add an FAQ&lt;/h1&gt;
+&lt;ol&gt;&lt;li&gt;Add an &lt;b&gt;FAQs&lt;/b&gt; module, or go to an existing &lt;b&gt;FAQs&lt;/b&gt; module. &lt;/li&gt;
+&lt;li&gt;Click &lt;b&gt;Add New FAQ&lt;/b&gt;. &lt;/li&gt;
+&lt;li&gt;At &lt;b&gt;Category&lt;/b&gt;, choose a category (optional).&lt;/li&gt;
+&lt;li&gt;At &lt;b&gt;Question&lt;/b&gt;, enter the question.&lt;/li&gt;
+&lt;li&gt;At &lt;b&gt;Answer&lt;/b&gt;, enter an answer to the question.&lt;/li&gt;
+&lt;li&gt;Click &lt;b&gt;Update&lt;/b&gt;.&lt;/li&gt;&lt;/ol&gt;</value>
+  </data>
+  <data name="EmptyCategory.Text" xml:space="preserve">
+    <value>Unassigned questions</value>
+  </data>
+  <data name="AllCategory.Text" xml:space="preserve">
+    <value>All questions</value>
+  </data>
+  <data name="lblSelectCategory.Text" xml:space="preserve">
+    <value>Select Category</value>
+  </data>
+  <data name="lblSort.Text" xml:space="preserve">
+    <value>Select Sort Order</value>
+  </data>
+  <data name="OrderByDateCreatedOriginal.Text" xml:space="preserve">
+    <value>Creation Date (oldest first)</value>
+  </data>
+  <data name="OrderByDateCreatedReverse.Text" xml:space="preserve">
+    <value>Creation Date (newest first)</value>
+  </data>
+  <data name="OrderByViewOrder.Text" xml:space="preserve">
+    <value>Predefined Order</value>
+  </data>
+  <data name="lblSelectCategory.Help" xml:space="preserve">
+    <value>Select the category for display</value>
+  </data>
+  <data name="lblSort.Help" xml:space="preserve">
+    <value>Select sort order for display</value>
+  </data>
+</root>
