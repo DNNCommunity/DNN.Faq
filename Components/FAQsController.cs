@@ -475,9 +475,12 @@ namespace DotNetNuke.Modules.FAQs
                 foreach (var xFaq in xFaqs.Elements())
                 {
                     // translate id with help of translation dictionary build before
-                    int oldCategoryId = Int32.Parse(xFaq.Element("categoryid").Value, CultureInfo.InvariantCulture);
-                    int newCategoryId = -1;
-                    if (idTrans.ContainsKey(oldCategoryId))
+                    int oldCategoryId = -1;
+                    int? newCategoryId = null;
+
+                    Int32.TryParse(xFaq.Element("categoryid").Value, out oldCategoryId);
+                    
+                    if (oldCategoryId > 0 && idTrans.ContainsKey(oldCategoryId))
                         newCategoryId = idTrans[oldCategoryId];
 
                     // Fill FAQs properties
