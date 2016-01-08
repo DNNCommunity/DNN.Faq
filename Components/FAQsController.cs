@@ -360,7 +360,7 @@ namespace DotNetNuke.Modules.FAQs
         ///// Retrieve the search item collection (ISearchable interface).
         ///// </summary>
         ///// <param name="modInfo">Module info object</param>
-        /// <returns>Collection of SearchItems</returns>
+        ///// <returns>Collection of SearchItems</returns>
         //public SearchItemInfoCollection GetSearchItems(ModuleInfo modInfo)
         //{
         //    var searchItemCollection = new SearchItemInfoCollection();
