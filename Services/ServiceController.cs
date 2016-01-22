@@ -27,9 +27,9 @@ namespace DotNetNuke.Modules.FAQs.Services
             public bool ShowHidden { get; set; }
         }
 
-        
         [AllowAnonymous] 
         [HttpPost]
+        [ValidateAntiForgeryToken]
         public HttpResponseMessage GetCategories(GetCategoriesDTO dto, string output)
         {
             FAQsController controller = new FAQsController();
@@ -38,6 +38,7 @@ namespace DotNetNuke.Modules.FAQs.Services
 
         [AllowAnonymous]
         [HttpPost]
+        [ValidateAntiForgeryToken]
         public HttpResponseMessage GetFaq(GetFaqDTO dto, string output)
         {
             FAQsController controller = new FAQsController();
@@ -46,6 +47,7 @@ namespace DotNetNuke.Modules.FAQs.Services
 
         [AllowAnonymous]
         [HttpPost]
+        [ValidateAntiForgeryToken]
         public HttpResponseMessage ListFaq(ListFaqDTO dto, string output)
         {
             FAQsController controller = new FAQsController();
