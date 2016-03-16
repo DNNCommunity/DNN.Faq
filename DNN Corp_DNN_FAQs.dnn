@@ -1,0 +1,236 @@
+﻿<dotnetnuke type="Package" version="5.0">
+  <packages><package name="DNN_FAQs" type="Module" version="5.3.0">
+  <friendlyName>FAQs</friendlyName>
+  <description>FAQs allow you to manage a list of Frequently Asked Questions and their corresponding Answers.</description>
+  <iconFile>~/DesktopModules\FAQs\DNN_FAQs.png</iconFile>
+  <owner>
+    <name>DNN Corp</name>
+    <organization>DNN Corp</organization>
+    <url>http://www.dnnsoftware.com</url>
+    <email>support@dnnsoftware.com</email>
+  </owner>
+  <license>&lt;div class="License"&gt;
+&lt;h3&gt;License&lt;/h3&gt;
+&lt;p class="Owner"&gt;DNNSoftware® - &lt;a href=http://www.dnnsoftware.com&gt;http://www.dnnsoftware.com&lt;/a&gt;&lt;br/&gt;Copyright (c) 2002-2014&lt;br/&gt;by DNN Corp&lt;/p&gt;
+&lt;p&gt;Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the "Software"), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:&lt;/p&gt;
+&lt;p&gt;The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.&lt;/p&gt;
+&lt;p&gt;THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.&lt;/p&gt;
+&lt;/div&gt; </license>
+  <releaseNotes>05.03.00
+
+&lt;h2&gt;Release notes DNN FAQs 05.01.01&lt;/h2&gt;
+&lt;p&gt;FAQs 05.01.00 will work for any DNN version 7.0.6 and up.
+Full details on the changes can be found in great detail at 
+&lt;a href="http://dnnfaq.codeplex.com/workitem/list/basic"&gt;dnnfaq.codeplex.com&lt;/a&gt;.&lt;/p&gt;
+&lt;h3&gt;BUG FIXES&lt;/h3&gt;
+&lt;ul&gt;
+    &lt;li&gt;Search items indexed clean of HTML tags&lt;/li&gt;
+	&lt;li&gt;Icon URL for edit question corrected&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3&gt;CHANGES&lt;/h3&gt;
+&lt;ul&gt;
+	&lt;li&gt;Search item date changed from createdate/time to modify date/time &lt;/li&gt;
+&lt;/ul&gt;
+</releaseNotes>
+  <azureCompatible>True</azureCompatible>
+  <dependencies>
+    <dependency type="CoreVersion">08.00.00</dependency>
+  </dependencies>
+  <components>
+    <component type="Script">
+      <scripts>
+        <basePath>DesktopModules\FAQs</basePath>
+        <script type="Install">
+          <path>Installation</path>
+          <name>03.01.00.SqlDataProvider</name>
+          <version>03.01.00</version>
+        </script>
+        <script type="Install">
+          <path>Installation</path>
+          <name>03.03.03.SqlDataProvider</name>
+          <version>03.03.03</version>
+        </script>
+        <script type="Install">
+          <path>Installation</path>
+          <name>04.05.00.SqlDataProvider</name>
+          <version>04.05.00</version>
+        </script>
+        <script type="Install">
+          <path>Installation</path>
+          <name>04.05.01.SqlDataProvider</name>
+          <version>04.05.01</version>
+        </script>
+        <script type="Install">
+          <path>Installation</path>
+          <name>05.00.00.SqlDataProvider</name>
+          <version>05.00.00</version>
+        </script>
+        <script type="Install">
+          <path>Installation</path>
+          <name>05.00.01.SqlDataProvider</name>
+          <version>05.00.01</version>
+        </script>
+        <script type="UnInstall">
+          <path>Installation</path>
+          <name>Uninstall.SqlDataProvider</name>
+          <version>5.3.0</version>
+        </script>
+        <script type="Install">
+          <path>Installation</path>
+          <name>05.02.00.SqlDataProvider</name>
+          <version>05.02.00</version>
+        </script>
+      </scripts>
+    </component>
+    <component type="Module">
+      <desktopModule>
+        <moduleName>DNN_FAQs</moduleName>
+        <foldername>FAQs</foldername>
+        <businessControllerClass>DotNetNuke.Modules.FAQs.FAQsController,DotNetNuke.Modules.FAQs</businessControllerClass>
+        <supportedFeatures>
+          <supportedFeature type="Portable" />
+          <supportedFeature type="Searchable" />
+        </supportedFeatures>
+        <moduleDefinitions>
+          <moduleDefinition>
+            <friendlyName>FAQs</friendlyName>
+            <definitionName>FAQs</definitionName>
+            <defaultCacheTime>-1</defaultCacheTime>
+            <moduleControls>
+              <moduleControl>
+                <controlKey />
+                <controlSrc>DesktopModules/FAQs/FAQs.ascx</controlSrc>
+                <supportsPartialRendering>True</supportsPartialRendering>
+                <controlTitle>FAQ</controlTitle>
+                <controlType>View</controlType>
+                <iconFile />
+                <helpUrl>http://dnnfaq.codeplex.com/</helpUrl>
+                <supportsPopUps>False</supportsPopUps>
+                <viewOrder>0</viewOrder>
+              </moduleControl>
+              <moduleControl>
+                <controlKey>Edit</controlKey>
+                <controlSrc>DesktopModules/FAQs/EditFAQs.ascx</controlSrc>
+                <supportsPartialRendering>False</supportsPartialRendering>
+                <controlTitle>Edit FAQs</controlTitle>
+                <controlType>Edit</controlType>
+                <iconFile />
+                <helpUrl>http://dnnfaq.codeplex.com/</helpUrl>
+                <supportsPopUps>True</supportsPopUps>
+                <viewOrder>0</viewOrder>
+              </moduleControl>
+              <moduleControl>
+                <controlKey>EditCategories</controlKey>
+                <controlSrc>DesktopModules/FAQs/FAQsCategories.ascx</controlSrc>
+                <supportsPartialRendering>True</supportsPartialRendering>
+                <controlTitle>Edit FAQ Categories</controlTitle>
+                <controlType>Edit</controlType>
+                <iconFile />
+                <helpUrl>http://dnnfaq.codeplex.com/</helpUrl>
+                <supportsPopUps>True</supportsPopUps>
+                <viewOrder>0</viewOrder>
+              </moduleControl>
+              <moduleControl>
+                <controlKey>Settings</controlKey>
+                <controlSrc>DesktopModules/FAQs/Settings.ascx</controlSrc>
+                <supportsPartialRendering>True</supportsPartialRendering>
+                <controlTitle>FAQ Settings</controlTitle>
+                <controlType>Admin</controlType>
+                <iconFile />
+                <helpUrl>http://dnnfaq.codeplex.com/</helpUrl>
+                <supportsPopUps>True</supportsPopUps>
+                <viewOrder>0</viewOrder>
+              </moduleControl>
+            </moduleControls>
+          </moduleDefinition>
+        </moduleDefinitions>
+      </desktopModule>
+      <eventMessage>
+        <processorType>DotNetNuke.Entities.Modules.EventMessageProcessor, DotNetNuke</processorType>
+        <processorCommand>UpgradeModule</processorCommand>
+        <attributes>
+          <businessControllerClass>DotNetNuke.Modules.FAQs.FAQsController,DotNetNuke.Modules.FAQs</businessControllerClass>
+          <desktopModuleID>[DESKTOPMODULEID]</desktopModuleID>
+          <upgradeVersionsList>03.01.00,03.03.03,04.05.00,04.05.01,05.00.00,05.00.01,05.02.00</upgradeVersionsList>
+        </attributes>
+      </eventMessage>
+    </component>
+    <component type="Assembly">
+      <assemblies>
+        <basePath>bin</basePath>
+        <assembly>
+          <name>DotNetNuke.Modules.FAQs.dll</name>
+        </assembly>
+      </assemblies>
+    </component>
+    <component type="File">
+      <files>
+        <basePath>DesktopModules\FAQs</basePath>
+        <file>
+          <name>Module.css</name>
+        </file>
+        <file>
+          <path>Images</path>
+          <name>FAQs-down.png</name>
+        </file>
+        <file>
+          <path>Images</path>
+          <name>FAQs-edit.png</name>
+        </file>
+        <file>
+          <path>Images</path>
+          <name>FAQs-up.png</name>
+        </file>
+        <file>
+          <path>Installation\Config</path>
+          <name>Config.txt</name>
+        </file>
+        <file>
+          <path>Installation\ReleaseNotes</path>
+          <name>Release.05.03.00 .txt</name>
+        </file>
+        <file>
+          <name>EditFAQs.ascx</name>
+        </file>
+        <file>
+          <name>FAQs.ascx</name>
+        </file>
+        <file>
+          <name>FAQsCategories.ascx</name>
+        </file>
+        <file>
+          <path>Installation</path>
+          <name>DNN_FAQs.png</name>
+        </file>
+        <file>
+          <path>Installation</path>
+          <name>License.txt</name>
+        </file>
+        <file>
+          <path>Scripts</path>
+          <name>AjaxFaq.js</name>
+        </file>
+        <file>
+          <name>Settings.ascx</name>
+        </file>
+        <file>
+          <path>App_LocalResources</path>
+          <name>EditFAQs.ascx.resx</name>
+        </file>
+        <file>
+          <path>App_LocalResources</path>
+          <name>FAQs.ascx.resx</name>
+        </file>
+        <file>
+          <path>App_LocalResources</path>
+          <name>FAQsCategories.ascx.resx</name>
+        </file>
+        <file>
+          <path>App_LocalResources</path>
+          <name>Settings.ascx.resx</name>
+        </file>
+      </files>
+    </component>
+  </components>
+</package></packages>
+</dotnetnuke>
