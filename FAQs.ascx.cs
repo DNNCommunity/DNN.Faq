@@ -31,6 +31,7 @@ using DotNetNuke.Entities.Modules.Actions;
 using DotNetNuke.Entities.Modules;
 using DotNetNuke.Services.Localization;
 using Telerik.Web.UI;
+using DotNetNuke.Web.UI.WebControls;
 
 namespace DotNetNuke.Modules.FAQs
 {
@@ -621,7 +622,6 @@ namespace DotNetNuke.Modules.FAQs
 		/// <param name="e">The <see cref="System.EventArgs" /> instance containing the event data.</param>
 		protected void Page_Load(System.Object sender, System.EventArgs e)
 		{
-			
 			try
 			{
 				if (ClientAPI.BrowserSupportsFunctionality(ClientAPI.ClientFunctionality.XMLHTTP) && ClientAPI.BrowserSupportsFunctionality(ClientAPI.ClientFunctionality.XML))
