@@ -31,6 +31,7 @@ using DotNetNuke.Entities.Modules.Actions;
 using DotNetNuke.Entities.Modules;
 using DotNetNuke.Services.Localization;
 using Telerik.Web.UI;
+using DotNetNuke.Web.UI.WebControls;
 
 namespace DotNetNuke.Modules.FAQs
 {
@@ -621,7 +622,6 @@ namespace DotNetNuke.Modules.FAQs
 		/// <param name="e">The <see cref="System.EventArgs" /> instance containing the event data.</param>
 		protected void Page_Load(System.Object sender, System.EventArgs e)
 		{
-			
 			try
 			{
 				if (ClientAPI.BrowserSupportsFunctionality(ClientAPI.ClientFunctionality.XMLHTTP) && ClientAPI.BrowserSupportsFunctionality(ClientAPI.ClientFunctionality.XML))
@@ -681,9 +681,13 @@ namespace DotNetNuke.Modules.FAQs
 
 				try
 				{
-					if (SupportsClientAPI) // AJAX Mode
-					{
+                    // Use Static FAQ ClientIDs
+                    string faqClientID = string.Format("DNN_FAQ_{0}_{1}", this.ModuleId, FaqItem.ItemID);
+                    lblAnswer.ID = faqClientID;
+                    lblAnswer.ClientIDMode = System.Web.UI.ClientIDMode.Static;
 
+                    if (SupportsClientAPI) // AJAX Mode
+					{
 						((LinkButton) (e.Item.FindControl("lnkQ2"))).Visible = false;
 
 						HtmlAnchor linkQuestion = (HtmlAnchor) (e.Item.FindControl("Q2"));
@@ -696,7 +700,7 @@ namespace DotNetNuke.Modules.FAQs
 						                                                               "GetFaqAnswerError");
                         //Set CallBackRef ClientScriptBlock 
                         string jsClientCallBackRef = string.Format("var ClientCallBackRef{0}= \"{1}\";", lblAnswer.ClientID, ClientCallBackRef);
-                        Page.ClientScript.RegisterClientScriptBlock(this.GetType(), string.Format("ClientCallBackRef{0}", lblAnswer.ClientID), jsClientCallBackRef, true);
+                        Page.ClientScript.RegisterClientScriptBlock(this.GetType(), string.Format("ClientCallBackRef{0}", lblAnswer.ClientID ), jsClientCallBackRef, true);
 
                         //Set LoadingTemplate ClientScriptBlock
                         string jsLoadingTemplate = string.Format("var LoadingTemplate{0}= '{1}';", lblAnswer.ClientID, HtmlDecode(this.LoadingTemplate));

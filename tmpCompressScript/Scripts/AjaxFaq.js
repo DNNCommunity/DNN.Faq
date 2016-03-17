@@ -1,3 +1,3 @@
-function GetFaqAnswerSuccess(c,a){var b=dnn.dom.getById(a);b.innerHTML=c;}function GetFaqAnswerError(c,a){var b=dnn.dom.getById(a);b.innerHTML=c;}function SetAnswerLabel(answerClientId){try{var label=document.getElementById(answerClientId);
+function GetFaqAnswerSuccess(f,d){var e=dnn.dom.getById(d);e.innerHTML=f;}function GetFaqAnswerError(f,d){var e=dnn.dom.getById(d);e.innerHTML=f;}function SetAnswerLabel(answerClientId){try{var label=document.getElementById(answerClientId);
 if(label!=null){if(label.innerHTML==""){var ClientCallBackRef=eval("ClientCallBackRef"+answerClientId);var LoadingTemplate=eval("LoadingTemplate"+answerClientId);label.innerHTML=LoadingTemplate;eval(ClientCallBackRef);}else{label.innerHTML="";
 }}}catch(e){alert("Error in function SetAnswerLabel:"+e.stack);}}
