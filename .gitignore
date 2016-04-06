@@ -6,6 +6,9 @@
 *.user
 *.sln.docstates
 *.sln.GhostDoc.xml
+web.config
+web.*.config
+.vs/
 
 # Build results
 [Dd]ebug/
@@ -18,6 +21,7 @@ build/
 bld/
 [Bb]in/
 [Oo]bj/
+[Ii]nstallation/*.zip
 
 # Roslyn cache directories
 *.ide/
@@ -159,7 +163,6 @@ ClientBin/
 *.pfx
 *.publishsettings
 node_modules/
-.vs/
 
 # RIA/Silverlight projects
 Generated_Code/
@@ -183,4 +186,3 @@ UpgradeLog*.htm
 
 # Microsoft Fakes
 FakesAssemblies/
-

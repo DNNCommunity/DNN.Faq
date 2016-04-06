@@ -32,7 +32,7 @@ using System.Runtime.InteropServices;
 [assembly:AssemblyDescription("Open Source Web Application Framework")]
 [assembly:AssemblyCompany("DNN Corp")]
 [assembly:AssemblyProduct("http://www.dnnsoftware.com")]
-[assembly: AssemblyCopyright("DotNetNuke® is copyright 2002-2014 by DNN Corp. All Rights Reserved.")]
+[assembly: AssemblyCopyright("DotNetNuke® is copyright 2002-2016 by DNN Corp. All Rights Reserved.")]
 [assembly:AssemblyTrademark("DotNetNuke")]
 
 [assembly:ComVisibleAttribute(false)]
@@ -50,6 +50,6 @@ using System.Runtime.InteropServices;
 // You can specify all the values or you can default the Build and Revision Numbers
 // by using the '*' as shown below:
 
-[assembly: AssemblyVersion("5.3.0.0")]
-[assembly: AssemblyFileVersion("5.3.0.0")]
+[assembly: AssemblyVersion("5.4.0.0")]
+[assembly: AssemblyFileVersion("5.4.0.0")]
 
