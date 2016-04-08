@@ -1,4 +1,4 @@
-<%@ Control Language="C#" Inherits="DotNetNuke.Modules.FAQs.FAQs" AutoEventWireup="true" CodeBehind="FAQs.ascx.cs" %>
+<%@ Control Language="C#" Inherits="DotNetNuke.Modules.FAQs.FAQs" AutoEventWireup="True" CodeBehind="FAQs.ascx.cs" %>
 <%@ Register TagPrefix="telerik" Namespace="Telerik.Web.UI" Assembly="Telerik.Web.UI" %>
 <%@ Register TagPrefix="dnn" Namespace="DotNetNuke.Web.UI.WebControls" Assembly="DotNetNuke.Web" %>
 <%@ Register TagPrefix="dnn" Namespace="DotNetNuke.Web.UI.WebControls" Assembly="DotNetNuke.Web.Deprecated" %>
@@ -20,12 +20,12 @@
                         </asp:View>
                         <asp:View ID="vShowCategoryTypeTree" runat="server">
                             <div class="categoryTree" style="margin-right: 20px;">
-                                <dnn:DNNTreeView ID="treeCategories" runat="server" CssClass="categoryTreeControl"
+                                <dnn:DnnTreeView ID="treeCategories" runat="server" CssClass="categoryTreeControl"
                                     ShowLineImages="False" OnNodeClick="treeCategories_NodeClick" OnNodeDataBound="treeCategories_NodeDataBound">
                                     <databindings>
 										<telerik:RadTreeNodeBinding Expanded="true" />
 									</databindings>
-                                </dnn:DNNTreeView>
+                                </dnn:DnnTreeView>
                             </div>
                         </asp:View>
                     </asp:MultiView>
