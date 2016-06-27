@@ -683,10 +683,11 @@ namespace DotNetNuke.Modules.FAQs
 				{
 					if (SupportsClientAPI) // AJAX Mode
 					{
+                        //change clientidmode, the old answerlabel still has the id from all categories.
                         lblAnswer.ClientIDMode = ClientIDMode.Static;
                         string asnwerID = string.Format("DNN_FAQ_{0}_{1}", ModuleId, FaqItem.ItemID);
                         lblAnswer.ID = asnwerID;
-
+                        
                         ((LinkButton) (e.Item.FindControl("lnkQ2"))).Visible = false;
 
 						HtmlAnchor linkQuestion = (HtmlAnchor) (e.Item.FindControl("Q2"));
