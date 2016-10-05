@@ -1,5 +1,5 @@
 ﻿<h3>Release notes DNN FAQs 05.04.00</h3>
-<p>FAQs 05.04.00 will work for any DNN version 8.0.0 and up. Full details on the changes can be found in great detail at <a href="https://github.com/DNNCommunity/DNN.Faq" target="_blank">DNN.Faq on GitHub</a>.</p>
+<p>FAQs 05.04.00 will work for any DNN version 8.0.4 and up. Full details on the changes can be found in great detail at <a href="https://github.com/DNNCommunity/DNN.Faq" target="_blank">DNN.Faq on GitHub</a>.</p>
 <p><strong>BUG FIXES</strong></p>
 <ul>
     <li>Search items indexed clean of HTML tags</li>
@@ -9,5 +9,5 @@
 </ul>
 <p><strong>CHANGES</strong></p>
 <ul>
-	<li>Upgraded to .NET framework 4.5.1 to follow the upgrade made to DNN 8.0.0</li>
+	<li>Upgraded to .NET framework 4.5.1 to follow the upgrade made to DNN 8.0.4</li>
 </ul>

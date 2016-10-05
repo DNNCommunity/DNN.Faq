@@ -35,287 +35,287 @@ namespace DotNetNuke.Modules.FAQs
 {
     [DNNtc.PackageProperties("DNN_FAQs")]
     [DNNtc.ModuleProperties("DNN_FAQs")]
-	[DNNtc.ModuleControlProperties("EditCategories", "Edit FAQ Categories", DNNtc.ControlType.Edit, "http://dnnfaq.codeplex.com/", true, true)]
-	partial class FAQsCategories : PortalModuleBase
-	{
-		#region Event Handlers
+    [DNNtc.ModuleControlProperties("EditCategories", "Edit FAQ Categories", DNNtc.ControlType.Edit, "https://github.com/DNNCommunity/DNN.Faq", true, true)]
+    partial class FAQsCategories : PortalModuleBase
+    {
+        #region Event Handlers
 
-		protected void Page_Load(object sender, EventArgs e)
-		{
-			try
-			{
-				if (Page.IsPostBack == false)
-				{
-					BindData();
+        protected void Page_Load(object sender, EventArgs e)
+        {
+            try
+            {
+                if (Page.IsPostBack == false)
+                {
+                    BindData();
 
-				}
-			}
-			catch (Exception exc) //Module failed to load
-			{
-				Exceptions.ProcessModuleLoadException(this, exc);
-			}
-		}
+                }
+            }
+            catch (Exception exc) //Module failed to load
+            {
+                Exceptions.ProcessModuleLoadException(this, exc);
+            }
+        }
 
-		/// <summary>
-		/// Handles the Click event of the cmdAddNew control.
-		/// </summary>
-		/// <param name="sender">The source of the event.</param>
-		/// <param name="e">The <see cref="System.EventArgs" /> instance containing the event data.</param>
-		protected void cmdAddNew_Click(Object sender, EventArgs e)
-		{
-			panelAddEdit.Visible = true;
-			txtCategoryDescription.Text = "";
-			txtCategoryName.Text = "";
-			PopulateCategoriesDropDown(-1);
-			treeCategories.UnselectAllNodes();
-			cmdDelete.Visible = false;
-		}
+        /// <summary>
+        /// Handles the Click event of the cmdAddNew control.
+        /// </summary>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">The <see cref="System.EventArgs" /> instance containing the event data.</param>
+        protected void cmdAddNew_Click(Object sender, EventArgs e)
+        {
+            panelAddEdit.Visible = true;
+            txtCategoryDescription.Text = "";
+            txtCategoryName.Text = "";
+            PopulateCategoriesDropDown(-1);
+            treeCategories.UnselectAllNodes();
+            cmdDelete.Visible = false;
+        }
 
-		/// <summary>
-		/// Handles the Click event of the cmdGoBack control.
-		/// </summary>
-		/// <param name="sender">The source of the event.</param>
-		/// <param name="e">The <see cref="System.EventArgs" /> instance containing the event data.</param>
-		protected void cmdGoBack_Click(Object sender, EventArgs e)
-		{
-			Response.Redirect(Globals.NavigateURL());
-		}
+        /// <summary>
+        /// Handles the Click event of the cmdGoBack control.
+        /// </summary>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">The <see cref="System.EventArgs" /> instance containing the event data.</param>
+        protected void cmdGoBack_Click(Object sender, EventArgs e)
+        {
+            Response.Redirect(Globals.NavigateURL());
+        }
 
-		/// <summary>
-		/// Handles the Click event of the cmdUpdate control.
-		/// </summary>
-		/// <param name="sender">The source of the event.</param>
-		/// <param name="e">The <see cref="System.EventArgs" /> instance containing the event data.</param>
-		protected void cmdUpdate_Click(Object sender, EventArgs e)
-		{
+        /// <summary>
+        /// Handles the Click event of the cmdUpdate control.
+        /// </summary>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">The <see cref="System.EventArgs" /> instance containing the event data.</param>
+        protected void cmdUpdate_Click(Object sender, EventArgs e)
+        {
 
-			FAQsController faqsController = new FAQsController();
-			CategoryInfo categoryItem = new CategoryInfo();
-			PortalSecurity objSecurity = new PortalSecurity();
+            FAQsController faqsController = new FAQsController();
+            CategoryInfo categoryItem = new CategoryInfo();
+            PortalSecurity objSecurity = new PortalSecurity();
 
-			int parentCategoryId = Convert.ToInt32(drpParentCategory.SelectedValue);
-			if (parentCategoryId < 0) 
-				parentCategoryId = 0;
+            int parentCategoryId = Convert.ToInt32(drpParentCategory.SelectedValue);
+            if (parentCategoryId < 0)
+                parentCategoryId = 0;
 
-			// We do not allow for script or markup
-			categoryItem.FaqCategoryParentId = parentCategoryId;
-			categoryItem.FaqCategoryName = objSecurity.InputFilter(txtCategoryName.Text, PortalSecurity.FilterFlag.NoMarkup | PortalSecurity.FilterFlag.NoScripting);
-			categoryItem.FaqCategoryDescription = objSecurity.InputFilter(txtCategoryDescription.Text, PortalSecurity.FilterFlag.NoScripting | PortalSecurity.FilterFlag.NoMarkup);
-			categoryItem.ModuleId = ModuleId;
+            // We do not allow for script or markup
+            categoryItem.FaqCategoryParentId = parentCategoryId;
+            categoryItem.FaqCategoryName = objSecurity.InputFilter(txtCategoryName.Text, PortalSecurity.FilterFlag.NoMarkup | PortalSecurity.FilterFlag.NoScripting);
+            categoryItem.FaqCategoryDescription = objSecurity.InputFilter(txtCategoryDescription.Text, PortalSecurity.FilterFlag.NoScripting | PortalSecurity.FilterFlag.NoMarkup);
+            categoryItem.ModuleId = ModuleId;
 
-			try
-			{
-				RadTreeNode node = treeCategories.SelectedNode;
-				if (node != null)
-				{
-					categoryItem.FaqCategoryId = Convert.ToInt32(node.Value);
-					CategoryInfo originalCategoryItem = faqsController.GetCategory(categoryItem.FaqCategoryId);
-					categoryItem.ViewOrder = originalCategoryItem.ViewOrder;
-					faqsController.UpdateCategory(categoryItem);
-				}
-				else
-				{
-					categoryItem.ViewOrder = 999;
-					faqsController.AddCategory(categoryItem);
-				}
-				faqsController.ReorderCategory(categoryItem.FaqCategoryParentId, ModuleId);
-				Response.Redirect(Request.RawUrl);
-			}
-			catch (Exception exc) //Module failed to load
-			{
-				Exceptions.ProcessModuleLoadException(this, exc);
-			}
-		}
+            try
+            {
+                RadTreeNode node = treeCategories.SelectedNode;
+                if (node != null)
+                {
+                    categoryItem.FaqCategoryId = Convert.ToInt32(node.Value);
+                    CategoryInfo originalCategoryItem = faqsController.GetCategory(categoryItem.FaqCategoryId);
+                    categoryItem.ViewOrder = originalCategoryItem.ViewOrder;
+                    faqsController.UpdateCategory(categoryItem);
+                }
+                else
+                {
+                    categoryItem.ViewOrder = 999;
+                    faqsController.AddCategory(categoryItem);
+                }
+                faqsController.ReorderCategory(categoryItem.FaqCategoryParentId, ModuleId);
+                Response.Redirect(Request.RawUrl);
+            }
+            catch (Exception exc) //Module failed to load
+            {
+                Exceptions.ProcessModuleLoadException(this, exc);
+            }
+        }
 
-		/// <summary>
-		/// Handles the Click event of the cmdDelete control.
-		/// </summary>
-		/// <param name="sender">The source of the event.</param>
-		/// <param name="e">The <see cref="System.EventArgs" /> instance containing the event data.</param>
-		protected void cmdDelete_Click(Object sender, EventArgs e)
-		{
-			FAQsController faqsController = new FAQsController();
-			try
-			{
-				RadTreeNode node = treeCategories.SelectedNode;
-				if (node != null)
-				{
-					int faqCategoryId = Convert.ToInt32(node.Value);
-					faqsController.DeleteCategory(faqCategoryId);
-				}
-				Response.Redirect(Request.RawUrl);
-			}
-			catch (Exception exc) //Module failed to load
-			{
-				Exceptions.ProcessModuleLoadException(this, exc);
-			}
-		}
+        /// <summary>
+        /// Handles the Click event of the cmdDelete control.
+        /// </summary>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">The <see cref="System.EventArgs" /> instance containing the event data.</param>
+        protected void cmdDelete_Click(Object sender, EventArgs e)
+        {
+            FAQsController faqsController = new FAQsController();
+            try
+            {
+                RadTreeNode node = treeCategories.SelectedNode;
+                if (node != null)
+                {
+                    int faqCategoryId = Convert.ToInt32(node.Value);
+                    faqsController.DeleteCategory(faqCategoryId);
+                }
+                Response.Redirect(Request.RawUrl);
+            }
+            catch (Exception exc) //Module failed to load
+            {
+                Exceptions.ProcessModuleLoadException(this, exc);
+            }
+        }
 
-		/// <summary>
-		/// Handles the Click event of the cmdCancel control.
-		/// </summary>
-		/// <param name="sender">The source of the event.</param>
-		/// <param name="e">The <see cref="System.EventArgs" /> instance containing the event data.</param>
-		protected void cmdCancel_Click(System.Object sender, System.EventArgs e)
-		{
-			panelAddEdit.Visible = false;
-		}
+        /// <summary>
+        /// Handles the Click event of the cmdCancel control.
+        /// </summary>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">The <see cref="System.EventArgs" /> instance containing the event data.</param>
+        protected void cmdCancel_Click(System.Object sender, System.EventArgs e)
+        {
+            panelAddEdit.Visible = false;
+        }
 
-		/// <summary>
-		/// Handles the NodeDataBound event of the treeCategories control (adds Tooltip)
-		/// </summary>
-		/// <param name="sender">The source of the event.</param>
-		/// <param name="e">instance containing the event data.</param>
-		protected void treeCategories_NodeDataBound(object sender, RadTreeNodeEventArgs e)
-		{
-			e.Node.ToolTip = (string)DataBinder.Eval(e.Node.DataItem, "FaqCategoryDescription");
-			e.Node.Value = DataBinder.Eval(e.Node.DataItem, "FaqCategoryId").ToString();
-			e.Node.ImageUrl = IconController.IconURL("folder");
-		}
-		
-		/// <summary>
-		/// Handles the NodeClick event of the treeCategories control
-		/// </summary>
-		/// <param name="sender">The source of the event.</param>
-		/// <param name="e">instance containing the event data.</param>
-		protected void treeCategories_NodeClick(object sender, RadTreeNodeEventArgs e)
-		{
-			int faqCategoryId = Convert.ToInt32(e.Node.Value);
-			EditCategory(faqCategoryId);
-			cmdDelete.Visible = true;
-		}
+        /// <summary>
+        /// Handles the NodeDataBound event of the treeCategories control (adds Tooltip)
+        /// </summary>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">instance containing the event data.</param>
+        protected void treeCategories_NodeDataBound(object sender, RadTreeNodeEventArgs e)
+        {
+            e.Node.ToolTip = (string)DataBinder.Eval(e.Node.DataItem, "FaqCategoryDescription");
+            e.Node.Value = DataBinder.Eval(e.Node.DataItem, "FaqCategoryId").ToString();
+            e.Node.ImageUrl = IconController.IconURL("folder");
+        }
+
+        /// <summary>
+        /// Handles the NodeClick event of the treeCategories control
+        /// </summary>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">instance containing the event data.</param>
+        protected void treeCategories_NodeClick(object sender, RadTreeNodeEventArgs e)
+        {
+            int faqCategoryId = Convert.ToInt32(e.Node.Value);
+            EditCategory(faqCategoryId);
+            cmdDelete.Visible = true;
+        }
 
 
-		protected void treeCategories_HandleDrop(object sender, RadTreeNodeDragDropEventArgs e)
-		{
-			FAQsController FAQsController = new FAQsController();
-			RadTreeNode sourceNode = e.SourceDragNode;
-			RadTreeNode destNode = e.DestDragNode;
-			RadTreeViewDropPosition dropPosition = e.DropPosition;
+        protected void treeCategories_HandleDrop(object sender, RadTreeNodeDragDropEventArgs e)
+        {
+            FAQsController FAQsController = new FAQsController();
+            RadTreeNode sourceNode = e.SourceDragNode;
+            RadTreeNode destNode = e.DestDragNode;
+            RadTreeViewDropPosition dropPosition = e.DropPosition;
 
-			if (destNode == null || sourceNode == destNode || sourceNode.IsAncestorOf(destNode))
-				return;
-			
-			int sourceFaqCategoryId = Convert.ToInt32(sourceNode.Value);
-			CategoryInfo sourceCategory = FAQsController.GetCategory(sourceFaqCategoryId);
+            if (destNode == null || sourceNode == destNode || sourceNode.IsAncestorOf(destNode))
+                return;
 
-			int destFaqCategoryId = Convert.ToInt32(destNode.Value);
-			CategoryInfo destCategory = FAQsController.GetCategory(destFaqCategoryId);
+            int sourceFaqCategoryId = Convert.ToInt32(sourceNode.Value);
+            CategoryInfo sourceCategory = FAQsController.GetCategory(sourceFaqCategoryId);
 
-			switch (dropPosition)
-			{
-				case RadTreeViewDropPosition.Over: // child
-					// Change Treeview
-					sourceNode.Owner.Nodes.Remove(sourceNode);
-					destNode.Nodes.Add(sourceNode);
-						
-					// Change the ParentId of Source in database
-					sourceCategory.FaqCategoryParentId = destCategory.FaqCategoryId;
-					sourceCategory.ViewOrder = 999;
-					FAQsController.UpdateCategory(sourceCategory);
-					break;
-				
-				case RadTreeViewDropPosition.Above: // sibling - above
-					sourceNode.Owner.Nodes.Remove(sourceNode);
-					destNode.InsertBefore(sourceNode);
-					sourceCategory.FaqCategoryParentId = destCategory.FaqCategoryParentId;
-					sourceCategory.ViewOrder = destCategory.ViewOrder - 1;
-					FAQsController.UpdateCategory(sourceCategory);
-					
-					break;
-				
-				case RadTreeViewDropPosition.Below: // sibling - below
-					sourceNode.Owner.Nodes.Remove(sourceNode);
-					destNode.InsertAfter(sourceNode);
-					sourceCategory.FaqCategoryParentId = destCategory.FaqCategoryParentId;
-					sourceCategory.ViewOrder = destCategory.ViewOrder + 1;
-					FAQsController.UpdateCategory(sourceCategory);
-					break;
-			}
-			FAQsController.ReorderCategory(sourceCategory.FaqCategoryParentId, ModuleId);
-			panelAddEdit.Visible = false;
-		}
+            int destFaqCategoryId = Convert.ToInt32(destNode.Value);
+            CategoryInfo destCategory = FAQsController.GetCategory(destFaqCategoryId);
 
-		#endregion
+            switch (dropPosition)
+            {
+                case RadTreeViewDropPosition.Over: // child
+                                                   // Change Treeview
+                    sourceNode.Owner.Nodes.Remove(sourceNode);
+                    destNode.Nodes.Add(sourceNode);
 
-		#region Private Methods
-		
-		internal class catInfo
-		{
-			// treeCategories fails with int? FaqCategoryParentId
-			// define a temp class that has no nullables
-			// set null ints to Null.NullInt
-			public int FaqCategoryParentId { get; set; }
-			public int FaqCategoryId { get; set; }
-			public int ModuleId { get; set; }
-			public string FaqCategoryName { get; set; }
-			public string FaqCategoryDescription { get; set; }
-			public int Level { get; set; }
-			public int ViewOrder { get; set; }
+                    // Change the ParentId of Source in database
+                    sourceCategory.FaqCategoryParentId = destCategory.FaqCategoryId;
+                    sourceCategory.ViewOrder = 999;
+                    FAQsController.UpdateCategory(sourceCategory);
+                    break;
 
-        		public catInfo()
-        		{
-		        }
-    		}
+                case RadTreeViewDropPosition.Above: // sibling - above
+                    sourceNode.Owner.Nodes.Remove(sourceNode);
+                    destNode.InsertBefore(sourceNode);
+                    sourceCategory.FaqCategoryParentId = destCategory.FaqCategoryParentId;
+                    sourceCategory.ViewOrder = destCategory.ViewOrder - 1;
+                    FAQsController.UpdateCategory(sourceCategory);
 
-		private void BindData()
-		{
-			FAQsController FAQsController = new FAQsController();
+                    break;
+
+                case RadTreeViewDropPosition.Below: // sibling - below
+                    sourceNode.Owner.Nodes.Remove(sourceNode);
+                    destNode.InsertAfter(sourceNode);
+                    sourceCategory.FaqCategoryParentId = destCategory.FaqCategoryParentId;
+                    sourceCategory.ViewOrder = destCategory.ViewOrder + 1;
+                    FAQsController.UpdateCategory(sourceCategory);
+                    break;
+            }
+            FAQsController.ReorderCategory(sourceCategory.FaqCategoryParentId, ModuleId);
+            panelAddEdit.Visible = false;
+        }
+
+        #endregion
+
+        #region Private Methods
+
+        internal class catInfo
+        {
+            // treeCategories fails with int? FaqCategoryParentId
+            // define a temp class that has no nullables
+            // set null ints to Null.NullInt
+            public int FaqCategoryParentId { get; set; }
+            public int FaqCategoryId { get; set; }
+            public int ModuleId { get; set; }
+            public string FaqCategoryName { get; set; }
+            public string FaqCategoryDescription { get; set; }
+            public int Level { get; set; }
+            public int ViewOrder { get; set; }
+
+            public catInfo()
+            {
+            }
+        }
+
+        private void BindData()
+        {
+            FAQsController FAQsController = new FAQsController();
             IEnumerable<CategoryInfo> cats = FAQsController.ListCategoriesHierarchical(ModuleId, false);
-			// treeCategories fails with int? FaqCategoryParentId
-			// define a temp class that has no nullables
-			// set null ints to Null.NullInt
-			ArrayList lst = new ArrayList();
-        		foreach (CategoryInfo cat in cats)
-        		{
-            			catInfo cinfo = new catInfo()
-            			{
-                			FaqCategoryParentId = cat.FaqCategoryParentId.HasValue ? cat.FaqCategoryParentId.Value : -1,
-                			FaqCategoryId = cat.FaqCategoryId,
-                			ModuleId = cat.ModuleId,
-                			FaqCategoryName = cat.FaqCategoryName,
-                			FaqCategoryDescription = cat.FaqCategoryDescription,
-                			Level = cat.Level,
-                			ViewOrder = cat.ViewOrder
-            			};
-            			lst.Add(cinfo);
-        		}
-        		
-            		treeCategories.Nodes.Clear();
-			treeCategories.DataTextField = "FaqCategoryName";
-			treeCategories.DataFieldID = "FaqCategoryId";
-			treeCategories.DataFieldParentID = "FaqCategoryParentId";
-			treeCategories.DataSource = cats;
-			treeCategories.DataBind();
-			if (!IsPostBack && treeCategories.Nodes.Count > 0)
-				treeCategories.Nodes[0].Selected = true;
-		}
-		private void EditCategory(int faqCategoryId)
-		{
-			FAQsController faqsController = new FAQsController();
-			panelAddEdit.Visible = true;
-			PopulateCategoriesDropDown(faqCategoryId);
-			CategoryInfo categoryItem = faqsController.GetCategory(faqCategoryId);
-			int? parentCategoryId = categoryItem.FaqCategoryParentId;
-			drpParentCategory.SelectedValue = (parentCategoryId == null ? "-1" : parentCategoryId.ToString());
-			txtCategoryName.Text = categoryItem.FaqCategoryName;
-			txtCategoryDescription.Text = categoryItem.FaqCategoryDescription;
-		}
+            // treeCategories fails with int? FaqCategoryParentId
+            // define a temp class that has no nullables
+            // set null ints to Null.NullInt
+            ArrayList lst = new ArrayList();
+            foreach (CategoryInfo cat in cats)
+            {
+                catInfo cinfo = new catInfo()
+                {
+                    FaqCategoryParentId = cat.FaqCategoryParentId.HasValue ? cat.FaqCategoryParentId.Value : -1,
+                    FaqCategoryId = cat.FaqCategoryId,
+                    ModuleId = cat.ModuleId,
+                    FaqCategoryName = cat.FaqCategoryName,
+                    FaqCategoryDescription = cat.FaqCategoryDescription,
+                    Level = cat.Level,
+                    ViewOrder = cat.ViewOrder
+                };
+                lst.Add(cinfo);
+            }
 
-		/// <summary>
-		/// Populates the (Parent-)categories drop down.
-		/// </summary>
-		private void PopulateCategoriesDropDown(int faqCategoryId)
-		{
-			drpParentCategory.Items.Clear();
-			drpParentCategory.Items.Add(new ListItem(Localization.GetString("SelectParentCategory.Text",this.LocalResourceFile), "-1"));
-			FAQsController FAQsController = new FAQsController();
-			foreach (CategoryInfo category in FAQsController.ListCategoriesHierarchical(ModuleId, false))
-			{
-				if (faqCategoryId != category.FaqCategoryId)
-					drpParentCategory.Items.Add(new ListItem(new string('.',category.Level*3) + category.FaqCategoryName, category.FaqCategoryId.ToString()));
-			}
-		}
-		#endregion
-	}
+            treeCategories.Nodes.Clear();
+            treeCategories.DataTextField = "FaqCategoryName";
+            treeCategories.DataFieldID = "FaqCategoryId";
+            treeCategories.DataFieldParentID = "FaqCategoryParentId";
+            treeCategories.DataSource = cats;
+            treeCategories.DataBind();
+            if (!IsPostBack && treeCategories.Nodes.Count > 0)
+                treeCategories.Nodes[0].Selected = true;
+        }
+        private void EditCategory(int faqCategoryId)
+        {
+            FAQsController faqsController = new FAQsController();
+            panelAddEdit.Visible = true;
+            PopulateCategoriesDropDown(faqCategoryId);
+            CategoryInfo categoryItem = faqsController.GetCategory(faqCategoryId);
+            int? parentCategoryId = categoryItem.FaqCategoryParentId;
+            drpParentCategory.SelectedValue = (parentCategoryId == null ? "-1" : parentCategoryId.ToString());
+            txtCategoryName.Text = categoryItem.FaqCategoryName;
+            txtCategoryDescription.Text = categoryItem.FaqCategoryDescription;
+        }
+
+        /// <summary>
+        /// Populates the (Parent-)categories drop down.
+        /// </summary>
+        private void PopulateCategoriesDropDown(int faqCategoryId)
+        {
+            drpParentCategory.Items.Clear();
+            drpParentCategory.Items.Add(new ListItem(Localization.GetString("SelectParentCategory.Text", this.LocalResourceFile), "-1"));
+            FAQsController FAQsController = new FAQsController();
+            foreach (CategoryInfo category in FAQsController.ListCategoriesHierarchical(ModuleId, false))
+            {
+                if (faqCategoryId != category.FaqCategoryId)
+                    drpParentCategory.Items.Add(new ListItem(new string('.', category.Level * 3) + category.FaqCategoryName, category.FaqCategoryId.ToString()));
+            }
+        }
+        #endregion
+    }
 }

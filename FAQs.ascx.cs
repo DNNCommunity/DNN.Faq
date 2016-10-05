@@ -37,20 +37,20 @@ namespace DotNetNuke.Modules.FAQs
 {
     [DNNtc.PackageProperties("DNN_FAQs", 1, "FAQs", "FAQs allow you to manage a list of Frequently Asked Questions and their corresponding Answers.", "DNN_FAQs.png", "DNN Corp", "DNN Corp", "http://www.dnnsoftware.com", "support@dnnsoftware.com", true)]
     [DNNtc.ModuleProperties("DNN_FAQs", "FAQs", -1)]
-	[DNNtc.ModuleControlProperties("", "FAQ", DNNtc.ControlType.View, "http://dnnfaq.codeplex.com/", true, false)]
-	[DNNtc.ModuleDependencies(DNNtc.ModuleDependency.CoreVersion, "07.02.01")]
+	[DNNtc.ModuleControlProperties("", "FAQ", DNNtc.ControlType.View, "https://github.com/DNNCommunity/DNN.Faq", true, false)]
+	[DNNtc.ModuleDependencies(DNNtc.ModuleDependency.CoreVersion, "08.00.04")]
 	public partial class FAQs : PortalModuleBase, IActionable, IClientAPICallbackEventHandler
 	{
-		
+
 		#region Members
-		
+
 		private bool SupportsClientAPI = false;
 		private bool _isFiltered = false;
-	
+
 		#endregion
-		
+
 		#region Properties
-		
+
 		public int DefaultSorting
 		{
 			get
@@ -134,7 +134,7 @@ namespace DotNetNuke.Modules.FAQs
 		{
 			get { return IsEditable && UserSorting == 6 && FaqData.Count > 1 && !_isFiltered; }
 		}
-		
+
 		/// <summary>
 		/// Gets the local resource file from the settings.
 		/// </summary>
@@ -146,7 +146,7 @@ namespace DotNetNuke.Modules.FAQs
 				return this.TemplateSourceDirectory + "/" + DotNetNuke.Services.Localization.Localization.LocalResourceDirectory + "/Settings";
 			}
 		}
-		
+
 		/// <summary>
 		/// Gets the answer template.
 		/// </summary>
@@ -166,7 +166,7 @@ namespace DotNetNuke.Modules.FAQs
 				}
 			}
 		}
-		
+
 		/// <summary>
 		/// Gets the question template.
 		/// </summary>
@@ -186,7 +186,7 @@ namespace DotNetNuke.Modules.FAQs
 				}
 			}
 		}
-		
+
 		/// <summary>
 		/// Gets the loading template.
 		/// </summary>
@@ -206,7 +206,7 @@ namespace DotNetNuke.Modules.FAQs
 				}
 			}
 		}
-		
+
 		/// <summary>
 		/// Gets the module actions.
 		/// </summary>
@@ -218,9 +218,9 @@ namespace DotNetNuke.Modules.FAQs
 				DotNetNuke.Entities.Modules.Actions.ModuleActionCollection actions = new DotNetNuke.Entities.Modules.Actions.ModuleActionCollection();
 				actions.Add(GetNextActionID(), Localization.GetString(ModuleActionType.AddContent, LocalResourceFile), ModuleActionType.AddContent, "", "", EditUrl(), false, Security.SecurityAccessLevel.Edit, true, false);
 				actions.Add(GetNextActionID(), Localization.GetString("ManageCategories", LocalResourceFile), ModuleActionType.AddContent, "", "", EditUrl("EditCategories"), false, Security.SecurityAccessLevel.Edit, true, false);
-				
+
 				return actions;
-				
+
 			}
 		}
 
@@ -294,8 +294,8 @@ namespace DotNetNuke.Modules.FAQs
 
 		public int RequestFaqId
 		{
-			get 
-			{ 
+			get
+			{
 				int retVal = -1;
 				if (Request.QueryString["faqid"] != null)
 				{
@@ -305,15 +305,15 @@ namespace DotNetNuke.Modules.FAQs
 			}
 		}
 		#endregion
-		
+
 		#region Private Methods
-		
+
 		/// <summary>
 		/// Binds the (filtered) faq data.
 		/// </summary>
 		private void BindData()
 		{
-			
+
 			//Get the complete array of FAQ items
 			ArrayList filterData = new ArrayList();
 		    int index = 1;
@@ -352,9 +352,9 @@ namespace DotNetNuke.Modules.FAQs
 			_isFiltered = (filterData.Count != FaqData.Count);
 			lstFAQs.DataSource = filterData;
 			lstFAQs.DataBind();
-			
+
 		}
-		
+
 		/// <summary>
 		/// Binds the categories.
 		/// </summary>
@@ -455,13 +455,13 @@ namespace DotNetNuke.Modules.FAQs
 				pnlShowCategories.Visible = false;
 			}
 		}
-		
+
 		/// <summary>
 		/// Determines if the element matches the filter input.
 		/// </summary>
 		private bool MatchElement(FAQsInfo fData)
 		{
-			
+
 			bool match = false;
 			bool noneChecked = true;
 
@@ -520,7 +520,7 @@ namespace DotNetNuke.Modules.FAQs
 					if (drpCategories.SelectedValue != null)
 					{
 						string selectedCat = drpCategories.SelectedItem.Text;
-						
+
 						// strip out possible level points
 						while (selectedCat.StartsWith("."))
 						{
@@ -538,16 +538,16 @@ namespace DotNetNuke.Modules.FAQs
 					}
 					break;
 			}
-			
+
 			if (noneChecked)
 			{
 				return true;
 			}
-			
+
 			return match;
-			
+
 		}
-		
+
 		/// <summary>
 		/// Increments the view count.
 		/// </summary>
@@ -556,12 +556,12 @@ namespace DotNetNuke.Modules.FAQs
 		{
 			FAQsController objFAQs = new FAQsController();
 			objFAQs.IncrementViewCount(FaqId);
-			
+
 		}
-		#endregion	
-		
+		#endregion
+
 		#region Public Methods
-		
+
 		/// <summary>
 		/// HTMLs the decode.
 		/// </summary>
@@ -577,11 +577,11 @@ namespace DotNetNuke.Modules.FAQs
 			{
 				DotNetNuke.Services.Exceptions.Exceptions.ProcessModuleLoadException(this, exc);
 			}
-			
+
 			return "";
-			
+
 		}
-		
+
 		/// <summary>
 		/// Raises the client API callback event.
 		/// </summary>
@@ -589,32 +589,32 @@ namespace DotNetNuke.Modules.FAQs
 		/// <returns></returns>
 		public string RaiseClientAPICallbackEvent(string eventArgument)
 		{
-			
+
 			try
 			{
 				int FaqId = int.Parse(eventArgument);
 				FAQsController objFAQs = new FAQsController();
-				
+
 				IncrementViewCount(FaqId);
-				
+
 				FAQsInfo FaqItem = objFAQs.GetFAQ(FaqId);
-				
+
 				return HtmlDecode(objFAQs.ProcessTokens(FaqItem, this.AnswerTemplate));
-				
+
 			}
 			catch (Exception exc)
 			{
 				DotNetNuke.Services.Exceptions.Exceptions.ProcessModuleLoadException(this, exc);
 			}
-			
+
 			return "";
-			
+
 		}
-		
+
 		#endregion
-		
+
 		#region Event Handlers
-		
+
 		/// <summary>
 		/// Handles the Load event of the Page control.
 		/// </summary>
@@ -629,7 +629,7 @@ namespace DotNetNuke.Modules.FAQs
 					SupportsClientAPI = true;
 					ClientAPI.RegisterClientReference(this.Page, ClientAPI.ClientNamespaceReferences.dnn_xml);
 					ClientAPI.RegisterClientReference(this.Page, ClientAPI.ClientNamespaceReferences.dnn_xmlhttp);
-					
+
 					if (this.Page.ClientScript.IsClientScriptBlockRegistered("AjaxFaq.js") == false)
 					{
 						this.Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "AjaxFaq.js", "<script language=javascript src=\"" + this.ControlPath + "scripts/AjaxFaq.js\"></script>");
@@ -640,7 +640,7 @@ namespace DotNetNuke.Modules.FAQs
 				{
 					//Fill the categories panel
 					BindCategories();
-					
+
 					//Bind the FAQ data
 					BindData();
 
@@ -656,15 +656,15 @@ namespace DotNetNuke.Modules.FAQs
 						pnlSortbox.Visible = false;
 					}
 				}
-				
+
 			}
 			catch (Exception exc) //Module failed to load
 			{
 				DotNetNuke.Services.Exceptions.Exceptions.ProcessModuleLoadException(this, exc);
 			}
-			
+
 		}
-		
+
 		/// <summary>
 		/// Handles the ItemDataBound event of the lstFAQs control.
 		/// </summary>
@@ -672,7 +672,7 @@ namespace DotNetNuke.Modules.FAQs
 		/// <param name="e">The <see cref="System.Web.UI.WebControls.DataListItemEventArgs" /> instance containing the event data.</param>
 		protected void lstFAQs_ItemDataBound(object sender, System.Web.UI.WebControls.DataListItemEventArgs e)
 		{
-			
+
 			if (e.Item.ItemType == ListItemType.Item || e.Item.ItemType == ListItemType.AlternatingItem)
 			{
 				FAQsInfo FaqItem = (FAQsInfo)e.Item.DataItem;
@@ -694,7 +694,7 @@ namespace DotNetNuke.Modules.FAQs
 						                                                               "GetFaqAnswerSuccess",
 						                                                               "\'" + lblAnswer.ClientID + "\'",
 						                                                               "GetFaqAnswerError");
-                        //Set CallBackRef ClientScriptBlock 
+                        //Set CallBackRef ClientScriptBlock
                         string jsClientCallBackRef = string.Format("var ClientCallBackRef{0}= \"{1}\";", lblAnswer.ClientID, ClientCallBackRef);
                         Page.ClientScript.RegisterClientScriptBlock(this.GetType(), string.Format("ClientCallBackRef{0}", lblAnswer.ClientID), jsClientCallBackRef, true);
 
@@ -731,7 +731,7 @@ namespace DotNetNuke.Modules.FAQs
 
 			}
 		}
-		
+
 		/// <summary>
 		/// Handles the Select event of the lstFAQs control.
 		/// </summary>
@@ -790,7 +790,7 @@ namespace DotNetNuke.Modules.FAQs
 					break;
 			}
 		}
-		
+
 		/// <summary>
 		/// Handles the CheckedChanged event of the Category controls.
 		/// </summary>
@@ -850,8 +850,8 @@ namespace DotNetNuke.Modules.FAQs
 		}
 
 		#endregion
-		
+
 	}
-	
+
 }
 

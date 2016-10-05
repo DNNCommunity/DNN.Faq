@@ -14,7 +14,7 @@
       <releaseNotes src="Release.05.04.00.txt"></releaseNotes>
       <azureCompatible>True</azureCompatible>
       <dependencies>
-        <dependency type="CoreVersion">07.02.01</dependency>
+        <dependency type="CoreVersion">08.00.04</dependency>
       </dependencies>
       <components>
         <component type="Script">
@@ -81,7 +81,7 @@
                     <supportsPopUps>false</supportsPopUps>
                     <controlTitle>FAQ</controlTitle>
                     <controlType>View</controlType>
-                    <helpUrl>http://dnnfaq.codeplex.com/</helpUrl>
+                    <helpUrl>https://github.com/DNNCommunity/DNN.Faq</helpUrl>
                   </moduleControl>
                   <moduleControl>
                     <controlKey>Edit</controlKey>
@@ -99,7 +99,7 @@
                     <supportsPopUps>true</supportsPopUps>
                     <controlTitle>Edit FAQ Categories</controlTitle>
                     <controlType>Edit</controlType>
-                    <helpUrl>http://dnnfaq.codeplex.com/</helpUrl>
+                    <helpUrl>https://github.com/DNNCommunity/DNN.Faq</helpUrl>
                   </moduleControl>
                   <moduleControl>
                     <controlKey>Settings</controlKey>
@@ -139,6 +139,7 @@
         <component type="Cleanup" version="05.00.02" fileName="Installation\CleanUp\Cleanup.05.00.02.txt" />
         <component type="Cleanup" version="05.01.01" fileName="Installation\CleanUp\Cleanup.05.01.01.txt" />
         <component type="Cleanup" version="05.02.00" fileName="Installation\CleanUp\Cleanup.05.02.00.txt" />
+        <component type="Cleanup" version="05.04.00" fileName="Installation\CleanUp\Cleanup.05.04.00.txt" />
       </components>
     </package>
   </packages>
