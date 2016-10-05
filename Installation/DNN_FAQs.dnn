@@ -139,6 +139,7 @@
         <component type="Cleanup" version="05.00.02" fileName="Installation\CleanUp\Cleanup.05.00.02.txt" />
         <component type="Cleanup" version="05.01.01" fileName="Installation\CleanUp\Cleanup.05.01.01.txt" />
         <component type="Cleanup" version="05.02.00" fileName="Installation\CleanUp\Cleanup.05.02.00.txt" />
+        <component type="Cleanup" version="05.04.00" fileName="Installation\CleanUp\Cleanup.05.04.00.txt" />
       </components>
     </package>
   </packages>
