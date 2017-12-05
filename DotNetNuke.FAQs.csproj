@@ -140,6 +140,8 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Components\CategoryInfo.cs" />
+    <Compile Include="Components\CategoryInfoTreeNode.cs" />
+    <Compile Include="Components\CategoryInfoTreeNodeExtensions.cs" />
     <Compile Include="Components\FAQsController.cs" />
     <Compile Include="Components\FAQsInfo.cs" />
     <Compile Include="Components\FAQsTokenReplace.cs" />

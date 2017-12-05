@@ -414,10 +414,13 @@ namespace DotNetNuke.Modules.FAQs
                         {
                             categories.Add(cat);
                         }
-                        List<CategoryInfo> lst = new List<CategoryInfo>();
+                        // treeCategories fails with int? FaqCategoryParentId
+                        // define a temp class that has no nullables
+                        // set null ints to Null.NullInt
+                        ArrayList lst = new ArrayList();
                         foreach (CategoryInfo cat in categories)
                         {
-                            lst.Add(cat);
+                            lst.Add(cat.ToTreeNode());
                         }
                         treeCategories.DataTextField = "FaqCategoryName";
                         treeCategories.DataFieldID = "FaqCategoryId";
