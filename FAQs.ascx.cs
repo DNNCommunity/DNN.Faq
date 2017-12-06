@@ -383,11 +383,17 @@ namespace DotNetNuke.Modules.FAQs
                 CategoryInfo emptyCategory = new CategoryInfo();
                 emptyCategory.FaqCategoryId = -1;
                 emptyCategory.FaqCategoryName = Localization.GetString("EmptyCategory", LocalResourceFile);
+                emptyCategory.ModuleId = ModuleId;
+                emptyCategory.Level = 0;
+                emptyCategory.ViewOrder = 998;
 
                 //All Categories
                 CategoryInfo allCategories = new CategoryInfo();
                 allCategories.FaqCategoryId = -2;
                 allCategories.FaqCategoryName = Localization.GetString("AllCategory", LocalResourceFile);
+                allCategories.ModuleId = ModuleId;
+                allCategories.Level = 0;
+                allCategories.ViewOrder = 999;
 
                 IEnumerable<CategoryInfo> cats = FAQsController.ListCategoriesHierarchical(ModuleId, !ShowEmptyCategories);
 

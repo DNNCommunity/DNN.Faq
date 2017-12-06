@@ -6,7 +6,7 @@
         {
             return new CategoryInfoTreeNode
             {
-                FaqCategoryParentId = categoryInfo.FaqCategoryParentId.HasValue ? categoryInfo.FaqCategoryParentId.Value : -1,
+                FaqCategoryParentId = categoryInfo.FaqCategoryParentId.HasValue ? categoryInfo.FaqCategoryParentId.Value : 0,
                 FaqCategoryId = categoryInfo.FaqCategoryId,
                 ModuleId = categoryInfo.ModuleId,
                 FaqCategoryName = categoryInfo.FaqCategoryName,
