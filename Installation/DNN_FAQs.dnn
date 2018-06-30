@@ -1,6 +1,6 @@
 <dotnetnuke type="Package" version="5.0">
   <packages>
-    <package name="DNN_FAQs" type="Module" version="05.04.00">
+    <package name="DNN_FAQs" type="Module" version="05.04.01">
       <friendlyName>FAQs</friendlyName>
       <description>FAQs allow you to manage a list of Frequently Asked Questions and their corresponding Answers.</description>
       <iconFile>DesktopModules\FAQs\DNN_FAQs.png</iconFile>
@@ -11,7 +11,6 @@
         <email>support@dnnsoftware.com</email>
       </owner>
       <license src="License.txt"></license>
-      <releaseNotes src="Release.05.04.00.txt"></releaseNotes>
       <azureCompatible>True</azureCompatible>
       <dependencies>
         <dependency type="CoreVersion">08.00.04</dependency>
