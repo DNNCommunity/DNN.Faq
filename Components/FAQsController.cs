@@ -306,9 +306,11 @@ namespace DotNetNuke.Modules.FAQs
                          "  ORDER BY rank " +
                          " )" +
                          " UPDATE {databaseOwner}[{objectQualifier}FAQsCategory] " +
-                         " SET ViewOrder = (SELECT ViewOrder FROM tmpReorder r WHERE r.FAQCategoryId = {databaseOwner}[{objectQualifier}FAQsCategory].FAQCategoryId)" +
-                         " WHERE ModuleId = @0" +
-                         " AND FaqCategoryParentId " + (faqParentCategoryId == 0 ? " IS NULL" : " = @1");
+                         " SET ViewOrder = r.ViewOrder " +
+                         " FROM tmpReorder r " +
+                         " WHERE r.FAQCategoryId = {databaseOwner}[{objectQualifier}FAQsCategory].FAQCategoryId" +
+                         " AND ModuleId = @0" +
+                         " AND FaqCategoryParentId " + (!faqParentCategoryId.HasValue || faqParentCategoryId == 0 ? " IS NULL" : " = @1");
 
             using (IDataContext ctx = DataContext.Instance())
             {
