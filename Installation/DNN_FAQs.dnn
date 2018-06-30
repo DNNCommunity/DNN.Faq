@@ -11,6 +11,7 @@
         <email>support@dnnsoftware.com</email>
       </owner>
       <license src="License.txt"></license>
+      <releaseNotes src="Release.05.04.01.txt"></releaseNotes>
       <azureCompatible>True</azureCompatible>
       <dependencies>
         <dependency type="CoreVersion">08.00.04</dependency>
