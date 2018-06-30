@@ -247,7 +247,7 @@ namespace DotNetNuke.Modules.FAQs
             // treeCategories fails with int? FaqCategoryParentId
             // define a temp class that has no nullables
             // set null ints to Null.NullInt
-            var lst = new List<catInfo>();
+            var lst = new List<CategoryInfoTreeNode>();
             foreach (CategoryInfo cat in cats)
             {   
                 lst.Add(cat.ToTreeNode());
