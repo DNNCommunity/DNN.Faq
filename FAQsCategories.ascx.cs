@@ -265,7 +265,7 @@ namespace DotNetNuke.Modules.FAQs
             // treeCategories fails with int? FaqCategoryParentId
             // define a temp class that has no nullables
             // set null ints to Null.NullInt
-            ArrayList lst = new ArrayList();
+            var lst = new List<catInfo>();
             foreach (CategoryInfo cat in cats)
             {
                 catInfo cinfo = new catInfo()
@@ -285,7 +285,7 @@ namespace DotNetNuke.Modules.FAQs
             treeCategories.DataTextField = "FaqCategoryName";
             treeCategories.DataFieldID = "FaqCategoryId";
             treeCategories.DataFieldParentID = "FaqCategoryParentId";
-            treeCategories.DataSource = cats;
+            treeCategories.DataSource = lst;
             treeCategories.DataBind();
             if (!IsPostBack && treeCategories.Nodes.Count > 0)
                 treeCategories.Nodes[0].Selected = true;
