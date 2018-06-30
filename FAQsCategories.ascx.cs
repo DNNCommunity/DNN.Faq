@@ -239,25 +239,7 @@ namespace DotNetNuke.Modules.FAQs
         #endregion
 
         #region Private Methods
-
-        internal class catInfo
-        {
-            // treeCategories fails with int? FaqCategoryParentId
-            // define a temp class that has no nullables
-            // set null ints to Null.NullInt
-            public int FaqCategoryParentId { get; set; }
-            public int FaqCategoryId { get; set; }
-            public int ModuleId { get; set; }
-            public string FaqCategoryName { get; set; }
-            public string FaqCategoryDescription { get; set; }
-            public int Level { get; set; }
-            public int ViewOrder { get; set; }
-
-            public catInfo()
-            {
-            }
-        }
-
+        
         private void BindData()
         {
             FAQsController FAQsController = new FAQsController();
@@ -267,18 +249,8 @@ namespace DotNetNuke.Modules.FAQs
             // set null ints to Null.NullInt
             var lst = new List<catInfo>();
             foreach (CategoryInfo cat in cats)
-            {
-                catInfo cinfo = new catInfo()
-                {
-                    FaqCategoryParentId = cat.FaqCategoryParentId.HasValue ? cat.FaqCategoryParentId.Value : -1,
-                    FaqCategoryId = cat.FaqCategoryId,
-                    ModuleId = cat.ModuleId,
-                    FaqCategoryName = cat.FaqCategoryName,
-                    FaqCategoryDescription = cat.FaqCategoryDescription,
-                    Level = cat.Level,
-                    ViewOrder = cat.ViewOrder
-                };
-                lst.Add(cinfo);
+            {   
+                lst.Add(cat.ToTreeNode());
             }
 
             treeCategories.Nodes.Clear();
