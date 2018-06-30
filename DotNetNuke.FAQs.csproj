@@ -197,6 +197,7 @@
     </None>
     <None Include="Installation\Uninstall.SqlDataProvider" />
     <None Include="Module.css" />
+    <Content Include="Installation\ReleaseNotes\Release.05.04.01.txt" />
     <Content Include="Installation\ReleaseNotes\Release.05.04.00.txt" />
     <Content Include="packages.config" />
   </ItemGroup>
