@@ -509,6 +509,10 @@ namespace DotNetNuke.Modules.FAQs
                     try
                     {
                         faq.PublishDate = DateTime.Parse(xFaq.Element("publishdate").Value);
+                        if (faq.PublishDate.HasValue && faq.PublishDate.Value == Null.NullDate)
+                        {
+                            faq.PublishDate = null;
+                        }
                     }
                     catch (Exception)
                     {
@@ -518,7 +522,12 @@ namespace DotNetNuke.Modules.FAQs
                     try
                     {
                         faq.ExpireDate = DateTime.Parse(xFaq.Element("expiredate").Value);
+                        if (faq.ExpireDate.HasValue && faq.ExpireDate.Value == Null.NullDate)
+                        {
+                            faq.ExpireDate = null;
+                        }
                     }
+
                     catch (Exception)
                     {
                         faq.ExpireDate = null;
