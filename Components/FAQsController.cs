@@ -242,7 +242,17 @@ namespace DotNetNuke.Modules.FAQs
             {
                 categories = ctx.ExecuteQuery<CategoryInfo>(CommandType.StoredProcedure, sql, moduleId, onlyUsedCategories);
             }
-            return categories;
+
+            // Reorder by hierarchy
+            var orderedCats = new List<CategoryInfo>();
+            var firstLevelCats = categories.Where(c => c.Level == 0);
+            foreach(var firstLevelCat in firstLevelCats)
+            {
+                orderedCats.Add(firstLevelCat);
+                orderedCats.AddRange(GetChildrenCategories(categories, firstLevelCat));
+            }
+
+            return orderedCats;
         }
 
         /// <summary>
@@ -306,9 +316,11 @@ namespace DotNetNuke.Modules.FAQs
                          "  ORDER BY rank " +
                          " )" +
                          " UPDATE {databaseOwner}[{objectQualifier}FAQsCategory] " +
-                         " SET ViewOrder = (SELECT ViewOrder FROM tmpReorder r WHERE r.FAQCategoryId = {databaseOwner}[{objectQualifier}FAQsCategory].FAQCategoryId)" +
-                         " WHERE ModuleId = @0" +
-                         " AND FaqCategoryParentId " + (faqParentCategoryId == 0 ? " IS NULL" : " = @1");
+                         " SET ViewOrder = r.ViewOrder " +
+                         " FROM tmpReorder r " +
+                         " WHERE r.FAQCategoryId = {databaseOwner}[{objectQualifier}FAQsCategory].FAQCategoryId" +
+                         " AND ModuleId = @0" +
+                         " AND FaqCategoryParentId " + (!faqParentCategoryId.HasValue || faqParentCategoryId == 0 ? " IS NULL" : " = @1");
 
             using (IDataContext ctx = DataContext.Instance())
             {
@@ -626,6 +638,17 @@ namespace DotNetNuke.Modules.FAQs
             // Now we can call TokenReplace
             FAQsTokenReplace tokenReplace = new FAQsTokenReplace(faqItem);
             return tokenReplace.ReplaceFAQsTokens(template);
+        }
+
+        private List<CategoryInfo> GetChildrenCategories(IEnumerable<CategoryInfo> categories, CategoryInfo category)
+        {
+            var childrens = new List<CategoryInfo>();
+            foreach (var subCategory in categories.Where(c => c.FaqCategoryParentId == category.FaqCategoryId))
+            {
+                childrens.Add(subCategory);
+                childrens.AddRange(GetChildrenCategories(categories, subCategory));
+            }
+            return childrens;
         }
 
         #endregion
