@@ -3,6 +3,7 @@
 <p><strong>BUG FIXES</strong></p>
 <ul>
     <li>Fixed an issue where the categories editor would not show</li>
+	<li>Fixed an issue where the categories would not show when the settings where on Treeview mode</li>
 </ul>
 <p><strong>CHANGES</strong></p>
 <ul>
