@@ -6,4 +6,4 @@ Useful links
 * [Project distribution](http://dnnfaq.codeplex.com/)
 * [Project Forums](http://www.dnnsoftware.com/forums/forumid/27/scope/threads)
 * [Project Issue Tracking](http://dnnfaq.codeplex.com/workitem/list/basic)
-
+* [Contributing](https://github.com/DNNCommunity/DNN.Faq/blob/development/.github/CONTRIBUTING.md)
