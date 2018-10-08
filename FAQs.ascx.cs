@@ -346,7 +346,12 @@ namespace DotNetNuke.Modules.FAQs
             }
             else
             {
-                filterData = FaqData;
+                foreach (FAQsInfo item in FaqData)
+                {
+                    item.Index = index;
+                    filterData.Add(item);
+                    index++;
+                }
             }
 
             _isFiltered = (filterData.Count != FaqData.Count);
