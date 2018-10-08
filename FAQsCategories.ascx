@@ -1,9 +1,10 @@
 <%@ Control Language="C#" Inherits="DotNetNuke.Modules.FAQs.FAQsCategories" AutoEventWireup="true" CodeBehind="FAQsCategories.ascx.cs" %>
 <%@ Register TagPrefix="dnn" TagName="Label" Src="~/controls/LabelControl.ascx" %>
 <%@ Register TagPrefix="dnn" Namespace="DotNetNuke.Web.UI.WebControls" Assembly="DotNetNuke.Web" %>
+<%@ Register TagPrefix="dnn" Namespace="DotNetNuke.Web.UI.WebControls" Assembly="DotNetNuke.Web.Deprecated" %>
 <%@ Register TagPrefix="telerik" Namespace="Telerik.Web.UI" Assembly="Telerik.Web.UI" %>
-<div class="dnnForm dnnFAQsCategories dnnClear">
-	<div class="dnnLeft">
+<div class="dnnForm dnnFAQsCategories dnnClear" style="display:grid; grid-template-columns: repeat(2, 1fr); grid-gap:30px;">
+	<div style="grid-column: 1;">
 		<dnn:DnnTreeView EnableDragAndDrop="True" EnableDragAndDropBetweenNodes="True" ID="treeCategories" OnNodeClick="treeCategories_NodeClick" OnNodeDataBound="treeCategories_NodeDataBound" OnNodeDrop="treeCategories_HandleDrop" runat="server" ShowLineImages="True">
 			<DataBindings>
 				<telerik:RadTreeNodeBinding Expanded="true" />
@@ -16,7 +17,7 @@
 				<asp:LinkButton ID="cmdGoBack" resourcekey="cmdGoBack" runat="server" CssClass="dnnSecondaryAction" CausesValidation="False" OnCommand="cmdGoBack_Click" /></li>
 		</ul>
 	</div>
-	<div class="dnnRight">
+	<div style="grid-column:2;">
 		<asp:Panel ID="panelAddEdit" runat="server" Visible="False">
 			<div class="dnnFormItem" id="rowFaqCategoryParentId" runat="server">
 				<dnn:Label ID="plParentCategoryField" runat="server" ControlName="drpParentCategory"></dnn:Label>

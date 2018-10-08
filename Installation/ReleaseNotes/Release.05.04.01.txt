@@ -1,0 +1,12 @@
+﻿<h3>Release notes DNN FAQs 05.04.01</h3>
+<p>FAQs 05.04.01 will work for any DNN version 8.0.4 and up and as been tested up to Dnn 9.2.0</p>
+<p><strong>BUG FIXES</strong></p>
+<ul>
+    <li>Fixed an issue where the categories editor would not show</li>
+	<li>Fixed an issue where the categories would not show when the settings where on Treeview mode</li>
+	<li>Fixed an issue with importing from older versions</li>
+</ul>
+<p><strong>CHANGES</strong></p>
+<ul>
+	<li>Categories shown in a dropdown now show in a hierarchy</li>
+</ul>

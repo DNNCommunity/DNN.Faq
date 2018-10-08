@@ -71,7 +71,7 @@ namespace DotNetNuke.Modules.FAQs
 		/// Gets or sets the module hierarchical level.
 		/// </summary>
 		/// <value>The module hierarchical level.</value>
-		[IgnoreColumn]
+		[ReadOnlyColumn]
         public int Level { get; set; }
 		
 

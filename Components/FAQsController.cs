@@ -44,7 +44,7 @@ namespace DotNetNuke.Modules.FAQs
     /// Main controller class for FAQs
     /// </summary>
     [DNNtc.BusinessControllerClass()]
-    public class FAQsController : ModuleSearchBase, IPortable
+    public class FAQsController : ModuleSearchBase, IPortable // : ISearchable <--- Do not remove this comment, it is required to make DNNtc packager to the old ISearchable is implemented to generate proper manifest
     {
         public const int MAX_DESCRIPTION_LENGTH = 100;
 
@@ -242,7 +242,17 @@ namespace DotNetNuke.Modules.FAQs
             {
                 categories = ctx.ExecuteQuery<CategoryInfo>(CommandType.StoredProcedure, sql, moduleId, onlyUsedCategories);
             }
-            return categories;
+
+            // Reorder by hierarchy
+            var orderedCats = new List<CategoryInfo>();
+            var firstLevelCats = categories.Where(c => c.Level == 0);
+            foreach(var firstLevelCat in firstLevelCats)
+            {
+                orderedCats.Add(firstLevelCat);
+                orderedCats.AddRange(GetChildrenCategories(categories, firstLevelCat));
+            }
+
+            return orderedCats;
         }
 
         /// <summary>
@@ -306,9 +316,11 @@ namespace DotNetNuke.Modules.FAQs
                          "  ORDER BY rank " +
                          " )" +
                          " UPDATE {databaseOwner}[{objectQualifier}FAQsCategory] " +
-                         " SET ViewOrder = (SELECT ViewOrder FROM tmpReorder r WHERE r.FAQCategoryId = {databaseOwner}[{objectQualifier}FAQsCategory].FAQCategoryId)" +
-                         " WHERE ModuleId = @0" +
-                         " AND FaqCategoryParentId " + (faqParentCategoryId == 0 ? " IS NULL" : " = @1");
+                         " SET ViewOrder = r.ViewOrder " +
+                         " FROM tmpReorder r " +
+                         " WHERE r.FAQCategoryId = {databaseOwner}[{objectQualifier}FAQsCategory].FAQCategoryId" +
+                         " AND ModuleId = @0" +
+                         " AND FaqCategoryParentId " + (!faqParentCategoryId.HasValue || faqParentCategoryId == 0 ? " IS NULL" : " = @1");
 
             using (IDataContext ctx = DataContext.Instance())
             {
@@ -356,11 +368,11 @@ namespace DotNetNuke.Modules.FAQs
         }
 
 
-        /// <summary>
-        /// Retrieve the search item collection (ISearchable interface).
-        /// </summary>
-        /// <param name="modInfo">Module info object</param>
-        /// <returns>Collection of SearchItems</returns>
+        ///// <summary>
+        ///// Retrieve the search item collection (ISearchable interface).
+        ///// </summary>
+        ///// <param name="modInfo">Module info object</param>
+        ///// <returns>Collection of SearchItems</returns>
         //public SearchItemInfoCollection GetSearchItems(ModuleInfo modInfo)
         //{
         //    var searchItemCollection = new SearchItemInfoCollection();
@@ -475,9 +487,12 @@ namespace DotNetNuke.Modules.FAQs
                 foreach (var xFaq in xFaqs.Elements())
                 {
                     // translate id with help of translation dictionary build before
-                    int oldCategoryId = Int32.Parse(xFaq.Element("categoryid").Value, CultureInfo.InvariantCulture);
-                    int newCategoryId = -1;
-                    if (idTrans.ContainsKey(oldCategoryId))
+                    int oldCategoryId = -1;
+                    int? newCategoryId = null;
+
+                    Int32.TryParse(xFaq.Element("categoryid").Value, out oldCategoryId);
+                    
+                    if (oldCategoryId > 0 && idTrans.ContainsKey(oldCategoryId))
                         newCategoryId = idTrans[oldCategoryId];
 
                     // Fill FAQs properties
@@ -494,6 +509,10 @@ namespace DotNetNuke.Modules.FAQs
                     try
                     {
                         faq.PublishDate = DateTime.Parse(xFaq.Element("publishdate").Value);
+                        if (faq.PublishDate.HasValue && faq.PublishDate.Value == Null.NullDate)
+                        {
+                            faq.PublishDate = null;
+                        }
                     }
                     catch (Exception)
                     {
@@ -503,7 +522,12 @@ namespace DotNetNuke.Modules.FAQs
                     try
                     {
                         faq.ExpireDate = DateTime.Parse(xFaq.Element("expiredate").Value);
+                        if (faq.ExpireDate.HasValue && faq.ExpireDate.Value == Null.NullDate)
+                        {
+                            faq.ExpireDate = null;
+                        }
                     }
+
                     catch (Exception)
                     {
                         faq.ExpireDate = null;
@@ -623,6 +647,17 @@ namespace DotNetNuke.Modules.FAQs
             // Now we can call TokenReplace
             FAQsTokenReplace tokenReplace = new FAQsTokenReplace(faqItem);
             return tokenReplace.ReplaceFAQsTokens(template);
+        }
+
+        private List<CategoryInfo> GetChildrenCategories(IEnumerable<CategoryInfo> categories, CategoryInfo category)
+        {
+            var childrens = new List<CategoryInfo>();
+            foreach (var subCategory in categories.Where(c => c.FaqCategoryParentId == category.FaqCategoryId))
+            {
+                childrens.Add(subCategory);
+                childrens.AddRange(GetChildrenCategories(categories, subCategory));
+            }
+            return childrens;
         }
 
         #endregion
