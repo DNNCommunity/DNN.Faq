@@ -68,6 +68,7 @@
             <businessControllerClass>DotNetNuke.Modules.FAQs.FAQsController,DotNetNuke.Modules.FAQs</businessControllerClass>
             <supportedFeatures>
               <supportedFeature type="Portable" />
+              <supportedFeature type="Searchable" />
             </supportedFeatures>
             <moduleDefinitions>
               <moduleDefinition>
