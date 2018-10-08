@@ -44,7 +44,7 @@ namespace DotNetNuke.Modules.FAQs
     /// Main controller class for FAQs
     /// </summary>
     [DNNtc.BusinessControllerClass()]
-    public class FAQsController : ModuleSearchBase, IPortable
+    public class FAQsController : ModuleSearchBase, IPortable // : ISearchable <--- Do not remove this comment, it is required to make DNNtc packager to the old ISearchable is implemented to generate proper manifest
     {
         public const int MAX_DESCRIPTION_LENGTH = 100;
 
