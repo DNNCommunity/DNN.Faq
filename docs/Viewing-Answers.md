@@ -1,0 +1,6 @@
+How to view the answer to a frequently asked question.
+
+1. Go to a FAQs module.
+1. Click on the question or on the **Expand** button to display the answer beneath the question.
+![](/images/Viewing-Answers-1.png?raw=true)
+1. **Optional.** Click the question again to hide the answer.
