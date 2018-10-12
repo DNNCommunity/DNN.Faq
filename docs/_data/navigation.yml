@@ -1,0 +1,22 @@
+- title: Home
+  url: /index.html
+- title: About
+  url: /About-FAQs.html
+- title: Adding categories
+  url: /Adding-FAQ-Categories.html
+- title: Adding FAQs
+  url: /Adding-FAQs.html
+- title: Editing FAQ templates
+  url: /Editing-FAQ-Templates.html
+- title: Management
+  sublinks:
+  - title: Category Settings
+    url: Managing-Category-Settings.html
+  - title: Managing FAQ Categories
+    url: Managing-FAQ-Categories.html
+  - title: Managing FAQs
+    url: Managing-FAQs.html
+  - title: Sorting Order
+    url: Setting-the-Default-Sorting-Order-of-FAQ's.html
+- title: Viewing Answers
+  url: Viewing-Answers.html
