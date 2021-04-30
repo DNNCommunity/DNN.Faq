@@ -3,6 +3,8 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 2012
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DotNetNuke.FAQs", "DotNetNuke.FAQs.csproj", "{334B7F1B-8CB0-42FD-82C8-50D1545440E7}"
 EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "_build", "build\_build.csproj", "{5BAECAD6-DDD6-4D46-8569-A313F609876D}"
+EndProject
 Global
 	GlobalSection(TeamFoundationVersionControl) = preSolution
 		SccNumberOfProjects = 2
@@ -17,6 +19,8 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{5BAECAD6-DDD6-4D46-8569-A313F609876D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5BAECAD6-DDD6-4D46-8569-A313F609876D}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{334B7F1B-8CB0-42FD-82C8-50D1545440E7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{334B7F1B-8CB0-42FD-82C8-50D1545440E7}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{334B7F1B-8CB0-42FD-82C8-50D1545440E7}.Release|Any CPU.ActiveCfg = Release|Any CPU
