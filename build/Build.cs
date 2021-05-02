@@ -64,30 +64,21 @@ class Build : NukeBuild
     }
 
     Target Clean => _ => _
-        .Before(Restore)
         .Executes(() =>
         {
             EnsureCleanDirectory(StagingDirectory);
             EnsureCleanDirectory(ArtifactsDirectory);
         });
 
-    Target Restore => _ => _
-        .Executes(() =>
-        {
-            DotNetRestore(s => s
-                .SetProjectFile(ModuleProject));
-        });
-
     Target Compile => _ => _
-        .DependsOn(Restore)
         .Executes(() =>
         {
             MSBuild(s => s
                 .SetProjectFile(ModuleProject)
                 .SetConfiguration(Configuration)
                 .SetAssemblyVersion(Version)
-                .SetFileVersion(Version));
-                
+                .SetFileVersion(Version)
+                .EnableRestore());
         });
 
     Target Package => _ => _

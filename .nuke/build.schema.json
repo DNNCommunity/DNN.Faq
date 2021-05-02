@@ -67,8 +67,7 @@
               "Clean",
               "Compile",
               "Deploy",
-              "Package",
-              "Restore"
+              "Package"
             ]
           }
         },
@@ -85,8 +84,7 @@
               "Clean",
               "Compile",
               "Deploy",
-              "Package",
-              "Restore"
+              "Package"
             ]
           }
         },
