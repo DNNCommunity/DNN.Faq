@@ -1,20 +1,20 @@
 <dotnetnuke type="Package" version="5.0">
   <packages>
-    <package name="DNN_FAQs" type="Module" version="05.04.02">
+    <package name="DNN_FAQs" type="Module" version="06.00.00">
       <friendlyName>FAQs</friendlyName>
       <description>FAQs allow you to manage a list of Frequently Asked Questions and their corresponding Answers.</description>
       <iconFile>DesktopModules\FAQs\DNN_FAQs.png</iconFile>
       <owner>
-        <name>DNN Corp</name>
-        <organization>DNN Corp</organization>
-        <url>http://www.dnnsoftware.com</url>
-        <email>support@dnnsoftware.com</email>
+        <name>DNN Community</name>
+        <organization>DNN Community</organization>
+        <url>https://dnncommunity.org</url>
+        <email>info@dnncommunity.org</email>
       </owner>
       <license src="License.txt"></license>
-      <releaseNotes src="Release.05.04.02.txt"></releaseNotes>
+      <releaseNotes src="ReleaseNotes.txt"></releaseNotes>
       <azureCompatible>True</azureCompatible>
       <dependencies>
-        <dependency type="CoreVersion">08.00.04</dependency>
+        <dependency type="CoreVersion">09.04.00</dependency>
       </dependencies>
       <components>
         <component type="Script">
@@ -141,6 +141,7 @@
         <component type="Cleanup" version="05.01.01" fileName="Installation\CleanUp\Cleanup.05.01.01.txt" />
         <component type="Cleanup" version="05.02.00" fileName="Installation\CleanUp\Cleanup.05.02.00.txt" />
         <component type="Cleanup" version="05.04.00" fileName="Installation\CleanUp\Cleanup.05.04.00.txt" />
+        <component type="Cleanup" version="06.00.00" fileName="Installation\CleanUp\Cleanup.06.00.00.txt" />
       </components>
     </package>
   </packages>
