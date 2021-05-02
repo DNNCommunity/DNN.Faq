@@ -50,7 +50,7 @@ If you are new to Dnn Development, you can start by watching this video playlist
 
 ## Building the module
 It has never been that easy to build and package a module. In Visual Studio, you will see 2 projects. Make sure the _build project is set as the startup project (should already be). Then in the debug dropdown you will see:
-* Package: this packages the whole module zip ready to be installed, you will find the zip file in the `Artificats` directory.
+* Package: this packages the module into an install `zip` package, ready to be installed. You will find the `zip` file in the `Artifacts` directory.
 * Deploy: For historical reasons, this module source code lives in the `DesktopModules\DNN.FAQ` folder but the running copy of the test site runs off the `DesktopModules/FAQ` folder. This mode will build the source code and copy the appropriate files to their correct location to test right away on your development site.
 
 ## Submitting changes
