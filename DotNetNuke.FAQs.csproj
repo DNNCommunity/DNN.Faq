@@ -22,6 +22,7 @@
     <SccAuxPath>SAK</SccAuxPath>
     <SccProvider>SAK</SccProvider>
     <TargetFrameworkProfile />
+    <Deterministic>true</Deterministic>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -49,30 +50,38 @@
     <Reference Include="DotNetNuke, Version=9.4.0.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>packages\DotNetNuke.Core.9.4.0\lib\net45\DotNetNuke.dll</HintPath>
       <SpecificVersion>False</SpecificVersion>
-      <Private>False</Private>
+    </Reference>
+    <Reference Include="DotNetNuke.DependencyInjection, Version=9.4.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>packages\DotNetNuke.DependencyInjection.9.4.0\lib\netstandard2.0\DotNetNuke.DependencyInjection.dll</HintPath>
+      <SpecificVersion>False</SpecificVersion>
     </Reference>
     <Reference Include="DotNetNuke.Web, Version=9.4.0.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>packages\DotNetNuke.Web.9.4.0\lib\net45\DotNetNuke.Web.dll</HintPath>
       <SpecificVersion>False</SpecificVersion>
-      <Private>False</Private>
     </Reference>
     <Reference Include="DotNetNuke.Web.Deprecated, Version=9.4.0.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>packages\DotNetNuke.Web.Deprecated.9.4.0\lib\net45\DotNetNuke.Web.Deprecated.dll</HintPath>
       <SpecificVersion>False</SpecificVersion>
-      <Private>False</Private>
     </Reference>
     <Reference Include="DotNetNuke.WebUtility, Version=4.2.1.783, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>packages\DotNetNuke.Web.9.4.0\lib\net45\DotNetNuke.WebUtility.dll</HintPath>
       <SpecificVersion>False</SpecificVersion>
-      <Private>False</Private>
     </Reference>
     <Reference Include="Microsoft.ApplicationBlocks.Data, Version=2.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>packages\DotNetNuke.Core.9.4.0\lib\net45\Microsoft.ApplicationBlocks.Data.dll</HintPath>
       <SpecificVersion>False</SpecificVersion>
-      <Private>False</Private>
+    </Reference>
+    <Reference Include="Microsoft.Extensions.DependencyInjection, Version=2.1.1.0, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
+      <HintPath>packages\Microsoft.Extensions.DependencyInjection.2.1.1\lib\net461\Microsoft.Extensions.DependencyInjection.dll</HintPath>
+      <SpecificVersion>False</SpecificVersion>
+    </Reference>
+    <Reference Include="Microsoft.Extensions.DependencyInjection.Abstractions, Version=2.1.1.0, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
+      <HintPath>packages\Microsoft.Extensions.DependencyInjection.Abstractions.2.1.1\lib\netstandard2.0\Microsoft.Extensions.DependencyInjection.Abstractions.dll</HintPath>
+      <SpecificVersion>False</SpecificVersion>
     </Reference>
     <Reference Include="Newtonsoft.Json, Version=10.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
       <HintPath>packages\Newtonsoft.Json.10.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
+      <SpecificVersion>False</SpecificVersion>
     </Reference>
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="System.Net" />
@@ -99,7 +108,6 @@
     <Reference Include="Telerik.Web.UI, Version=2013.2.717.40, Culture=neutral, PublicKeyToken=121fae78165ba3d4, processorArchitecture=MSIL">
       <HintPath>packages\DotNetNuke.Web.Deprecated.9.4.0\lib\net45\Telerik.Web.UI.dll</HintPath>
       <SpecificVersion>False</SpecificVersion>
-      <Private>False</Private>
     </Reference>
   </ItemGroup>
   <ItemGroup>
@@ -164,7 +172,6 @@
       <DependentUpon>FAQsCategories.ascx</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Installation\Attributes.cs" />
     <Compile Include="Services\RouteMapper.cs" />
     <Compile Include="Services\ServiceController.cs" />
     <Compile Include="Settings.ascx.cs">
@@ -187,17 +194,17 @@
     <Content Include="Images\FAQs-up.png" />
     <Content Include="Installation\CleanUp\Cleanup.05.00.02.txt" />
     <Content Include="Installation\CleanUp\Cleanup.05.01.01.txt" />
+    <Content Include="Installation\CleanUp\Cleanup.06.00.00.txt" />
     <Content Include="Installation\CleanUp\Cleanup.05.02.00.txt" />
-    <Content Include="Installation\Config\Config.txt" />
     <Content Include="Installation\DNN_FAQs.dnn" />
     <Content Include="Installation\05.02.00.SqlDataProvider" />
     <None Include="Installation\Uninstall.SqlDataProvider" />
     <None Include="Module.css" />
-    <Content Include="Installation\ReleaseNotes\Release.05.04.02.txt" />
-    <Content Include="Installation\ReleaseNotes\Release.05.04.01.txt" />
-    <Content Include="Installation\ReleaseNotes\Release.05.04.00.txt" />
+    <Content Include="License.txt" />
     <Content Include="packages.config" />
+    <Content Include="ReleaseNotes.txt" />
     <Content Include="web.config" />
+    <Content Include="README.md" />
     <None Include="web.Debug.config">
       <DependentUpon>web.config</DependentUpon>
     </None>
@@ -214,15 +221,6 @@
     <Content Include="Installation\CleanUp\Cleanup.05.00.00.txt" />
     <Content Include="Installation\CleanUp\Cleanup.05.00.01.txt" />
     <Content Include="Installation\DNN_FAQs.png" />
-    <Content Include="Installation\License.txt" />
-    <Content Include="Installation\ReleaseNotes\Release.05.00.02.txt" />
-    <Content Include="Installation\ReleaseNotes\Release.05.01.00.txt" />
-    <Content Include="Installation\ReleaseNotes\Release.04.05.00.txt" />
-    <Content Include="Installation\ReleaseNotes\Release.04.05.01.txt" />
-    <Content Include="Installation\ReleaseNotes\Release.05.00.00.txt" />
-    <Content Include="Installation\ReleaseNotes\Release.05.00.01.txt" />
-    <Content Include="Installation\ReleaseNotes\Release.05.01.01.txt" />
-    <Content Include="Installation\ReleaseNotes\Release.05.02.00.txt" />
     <Content Include="Scripts\AjaxFaq.js" />
     <Content Include="Settings.ascx" />
   </ItemGroup>

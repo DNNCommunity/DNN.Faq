@@ -35,10 +35,6 @@ using DotNetNuke.Web.UI.WebControls;
 
 namespace DotNetNuke.Modules.FAQs
 {
-    [DNNtc.PackageProperties("DNN_FAQs", 1, "FAQs", "FAQs allow you to manage a list of Frequently Asked Questions and their corresponding Answers.", "DNN_FAQs.png", "DNN Corp", "DNN Corp", "http://www.dnnsoftware.com", "support@dnnsoftware.com", true)]
-    [DNNtc.ModuleProperties("DNN_FAQs", "FAQs", -1)]
-    [DNNtc.ModuleControlProperties("", "FAQ", DNNtc.ControlType.View, "https://github.com/DNNCommunity/DNN.Faq", true, false)]
-    [DNNtc.ModuleDependencies(DNNtc.ModuleDependency.CoreVersion, "08.00.04")]
     public partial class FAQs : PortalModuleBase, IActionable, IClientAPICallbackEventHandler
     {
 

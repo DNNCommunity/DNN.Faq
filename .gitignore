@@ -187,3 +187,5 @@ UpgradeLog*.htm
 
 # Microsoft Fakes
 FakesAssemblies/
+/Staging
+/Artifacts

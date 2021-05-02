@@ -1,0 +1,4 @@
+﻿﻿<h2>FAQs</h2>
+<p><em>Developed by and for the DNN Community</em></p>
+
+<p>Release notes are managed on <a href="https://github.com/DNNCommunity/DNN.Faq/releases">Github</a>.</p>
