@@ -1,7 +1,6 @@
 <%@ Control Language="C#" Inherits="DotNetNuke.Modules.FAQs.FAQsCategories" AutoEventWireup="true" CodeBehind="FAQsCategories.ascx.cs" %>
 <%@ Register TagPrefix="dnn" TagName="Label" Src="~/controls/LabelControl.ascx" %>
 <%@ Register TagPrefix="dnn" Namespace="DotNetNuke.Web.UI.WebControls" Assembly="DotNetNuke.Web" %>
-<%@ Register TagPrefix="dnn" Namespace="DotNetNuke.Web.UI.WebControls" Assembly="DotNetNuke.Web.Deprecated" %>
 <div class="dnnForm dnnFAQsCategories dnnClear" style="display:grid; grid-template-columns: repeat(2, 1fr); grid-gap:30px;">
 	<div style="grid-column: 1;">
 		<asp:TreeView runat="server" ID="treeCategories" OnSelectedNodeChanged="treeCategories_SelectedNodeChanged"></asp:TreeView>

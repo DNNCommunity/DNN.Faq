@@ -30,7 +30,6 @@ using DotNetNuke.Common.Utilities;
 using DotNetNuke.Entities.Modules.Actions;
 using DotNetNuke.Entities.Modules;
 using DotNetNuke.Services.Localization;
-using DotNetNuke.Web.UI.WebControls;
 
 namespace DotNetNuke.Modules.FAQs
 {
