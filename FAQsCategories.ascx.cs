@@ -29,7 +29,7 @@ using DotNetNuke.Entities.Modules;
 using DotNetNuke.Services.Exceptions;
 using DotNetNuke.Services.Localization;
 using DotNetNuke.Security;
-using Telerik.Web.UI;
+using System.Linq;
 
 namespace DotNetNuke.Modules.FAQs
 {
@@ -64,7 +64,6 @@ namespace DotNetNuke.Modules.FAQs
             txtCategoryDescription.Text = "";
             txtCategoryName.Text = "";
             PopulateCategoriesDropDown(-1);
-            treeCategories.UnselectAllNodes();
             cmdDelete.Visible = false;
         }
 
@@ -102,7 +101,7 @@ namespace DotNetNuke.Modules.FAQs
 
             try
             {
-                RadTreeNode node = treeCategories.SelectedNode;
+                TreeNode node = treeCategories.SelectedNode;
                 if (node != null)
                 {
                     categoryItem.FaqCategoryId = Convert.ToInt32(node.Value);
@@ -134,7 +133,7 @@ namespace DotNetNuke.Modules.FAQs
             FAQsController faqsController = new FAQsController();
             try
             {
-                RadTreeNode node = treeCategories.SelectedNode;
+                TreeNode node = treeCategories.SelectedNode;
                 if (node != null)
                 {
                     int faqCategoryId = Convert.ToInt32(node.Value);
@@ -158,85 +157,27 @@ namespace DotNetNuke.Modules.FAQs
             panelAddEdit.Visible = false;
         }
 
-        /// <summary>
-        /// Handles the NodeDataBound event of the treeCategories control (adds Tooltip)
-        /// </summary>
-        /// <param name="sender">The source of the event.</param>
-        /// <param name="e">instance containing the event data.</param>
-        protected void treeCategories_NodeDataBound(object sender, RadTreeNodeEventArgs e)
-        {
-            e.Node.ToolTip = (string)DataBinder.Eval(e.Node.DataItem, "FaqCategoryDescription");
-            e.Node.Value = DataBinder.Eval(e.Node.DataItem, "FaqCategoryId").ToString();
-            e.Node.ImageUrl = IconController.IconURL("folder");
-        }
-
-        /// <summary>
-        /// Handles the NodeClick event of the treeCategories control
-        /// </summary>
-        /// <param name="sender">The source of the event.</param>
-        /// <param name="e">instance containing the event data.</param>
-        protected void treeCategories_NodeClick(object sender, RadTreeNodeEventArgs e)
-        {
-            int faqCategoryId = Convert.ToInt32(e.Node.Value);
-            EditCategory(faqCategoryId);
-            cmdDelete.Visible = true;
-        }
-
-
-        protected void treeCategories_HandleDrop(object sender, RadTreeNodeDragDropEventArgs e)
-        {
-            FAQsController FAQsController = new FAQsController();
-            RadTreeNode sourceNode = e.SourceDragNode;
-            RadTreeNode destNode = e.DestDragNode;
-            RadTreeViewDropPosition dropPosition = e.DropPosition;
-
-            if (destNode == null || sourceNode == destNode || sourceNode.IsAncestorOf(destNode))
-                return;
-
-            int sourceFaqCategoryId = Convert.ToInt32(sourceNode.Value);
-            CategoryInfo sourceCategory = FAQsController.GetCategory(sourceFaqCategoryId);
-
-            int destFaqCategoryId = Convert.ToInt32(destNode.Value);
-            CategoryInfo destCategory = FAQsController.GetCategory(destFaqCategoryId);
-
-            switch (dropPosition)
-            {
-                case RadTreeViewDropPosition.Over: // child
-                                                   // Change Treeview
-                    sourceNode.Owner.Nodes.Remove(sourceNode);
-                    destNode.Nodes.Add(sourceNode);
-
-                    // Change the ParentId of Source in database
-                    sourceCategory.FaqCategoryParentId = destCategory.FaqCategoryId;
-                    sourceCategory.ViewOrder = 999;
-                    FAQsController.UpdateCategory(sourceCategory);
-                    break;
-
-                case RadTreeViewDropPosition.Above: // sibling - above
-                    sourceNode.Owner.Nodes.Remove(sourceNode);
-                    destNode.InsertBefore(sourceNode);
-                    sourceCategory.FaqCategoryParentId = destCategory.FaqCategoryParentId;
-                    sourceCategory.ViewOrder = destCategory.ViewOrder - 1;
-                    FAQsController.UpdateCategory(sourceCategory);
-
-                    break;
-
-                case RadTreeViewDropPosition.Below: // sibling - below
-                    sourceNode.Owner.Nodes.Remove(sourceNode);
-                    destNode.InsertAfter(sourceNode);
-                    sourceCategory.FaqCategoryParentId = destCategory.FaqCategoryParentId;
-                    sourceCategory.ViewOrder = destCategory.ViewOrder + 1;
-                    FAQsController.UpdateCategory(sourceCategory);
-                    break;
-            }
-            FAQsController.ReorderCategory(sourceCategory.FaqCategoryParentId, ModuleId);
-            panelAddEdit.Visible = false;
-        }
-
         #endregion
 
         #region Private Methods
-        
+
+        private void PopulateTreeView(List<CategoryInfoTreeNode> list, int ParentId, TreeNodeCollection treeNode)
+        {
+            foreach (var row in list.Where(x => x.FaqCategoryParentId == ParentId))
+            {
+                TreeNode child = new TreeNode
+                {
+                    Text = row.FaqCategoryName,
+                    Value = row.FaqCategoryId.ToString()
+                };
+
+                treeNode.Add(child);
+                var dtChild = list.Where(x => x.FaqCategoryParentId == ParentId).ToList();
+                if (dtChild.Count > 0)
+                    PopulateTreeView(list, row.FaqCategoryId, child.ChildNodes);
+            }
+        }
+
         private void BindData()
         {
             FAQsController FAQsController = new FAQsController();
@@ -250,14 +191,7 @@ namespace DotNetNuke.Modules.FAQs
                 lst.Add(cat.ToTreeNode());
             }
 
-            treeCategories.Nodes.Clear();
-            treeCategories.DataTextField = "FaqCategoryName";
-            treeCategories.DataFieldID = "FaqCategoryId";
-            treeCategories.DataFieldParentID = "FaqCategoryParentId";
-            treeCategories.DataSource = lst;
-            treeCategories.DataBind();
-            if (!IsPostBack && treeCategories.Nodes.Count > 0)
-                treeCategories.Nodes[0].Selected = true;
+            PopulateTreeView(lst, 0, treeCategories.Nodes);
         }
         private void EditCategory(int faqCategoryId)
         {
@@ -286,5 +220,12 @@ namespace DotNetNuke.Modules.FAQs
             }
         }
         #endregion
+
+        protected void treeCategories_SelectedNodeChanged(object sender, EventArgs e)
+        {
+            int faqCategoryId = Convert.ToInt32(treeCategories.SelectedNode.Value);
+            EditCategory(faqCategoryId);
+            cmdDelete.Visible = true;
+        }
     }
 }

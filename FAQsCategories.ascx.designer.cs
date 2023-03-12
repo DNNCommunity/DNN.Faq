@@ -7,11 +7,13 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace DotNetNuke.Modules.FAQs {
-    
-    
-    public partial class FAQsCategories {
-        
+namespace DotNetNuke.Modules.FAQs
+{
+
+
+    public partial class FAQsCategories
+    {
+
         /// <summary>
         /// treeCategories control.
         /// </summary>
@@ -19,8 +21,8 @@ namespace DotNetNuke.Modules.FAQs {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::DotNetNuke.Web.UI.WebControls.DnnTreeView treeCategories;
-        
+        protected global::System.Web.UI.WebControls.TreeView treeCategories;
+
         /// <summary>
         /// cmdAddNew control.
         /// </summary>
@@ -29,7 +31,7 @@ namespace DotNetNuke.Modules.FAQs {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.LinkButton cmdAddNew;
-        
+
         /// <summary>
         /// cmdGoBack control.
         /// </summary>
@@ -38,7 +40,7 @@ namespace DotNetNuke.Modules.FAQs {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.LinkButton cmdGoBack;
-        
+
         /// <summary>
         /// panelAddEdit control.
         /// </summary>
@@ -47,7 +49,7 @@ namespace DotNetNuke.Modules.FAQs {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Panel panelAddEdit;
-        
+
         /// <summary>
         /// rowFaqCategoryParentId control.
         /// </summary>
@@ -56,7 +58,7 @@ namespace DotNetNuke.Modules.FAQs {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.HtmlControls.HtmlGenericControl rowFaqCategoryParentId;
-        
+
         /// <summary>
         /// plParentCategoryField control.
         /// </summary>
@@ -65,7 +67,7 @@ namespace DotNetNuke.Modules.FAQs {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.UserControl plParentCategoryField;
-        
+
         /// <summary>
         /// drpParentCategory control.
         /// </summary>
@@ -74,7 +76,7 @@ namespace DotNetNuke.Modules.FAQs {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.DropDownList drpParentCategory;
-        
+
         /// <summary>
         /// plCategoryName control.
         /// </summary>
@@ -83,7 +85,7 @@ namespace DotNetNuke.Modules.FAQs {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.UserControl plCategoryName;
-        
+
         /// <summary>
         /// txtCategoryName control.
         /// </summary>
@@ -92,7 +94,7 @@ namespace DotNetNuke.Modules.FAQs {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox txtCategoryName;
-        
+
         /// <summary>
         /// rqdCategoryName control.
         /// </summary>
@@ -101,7 +103,7 @@ namespace DotNetNuke.Modules.FAQs {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.RequiredFieldValidator rqdCategoryName;
-        
+
         /// <summary>
         /// plCategoryDescription control.
         /// </summary>
@@ -110,7 +112,7 @@ namespace DotNetNuke.Modules.FAQs {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.UserControl plCategoryDescription;
-        
+
         /// <summary>
         /// txtCategoryDescription control.
         /// </summary>
@@ -119,7 +121,7 @@ namespace DotNetNuke.Modules.FAQs {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox txtCategoryDescription;
-        
+
         /// <summary>
         /// rqdCategoryDescription control.
         /// </summary>
@@ -128,7 +130,7 @@ namespace DotNetNuke.Modules.FAQs {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.RequiredFieldValidator rqdCategoryDescription;
-        
+
         /// <summary>
         /// cmdUpdate control.
         /// </summary>
@@ -137,7 +139,7 @@ namespace DotNetNuke.Modules.FAQs {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.LinkButton cmdUpdate;
-        
+
         /// <summary>
         /// cmdCancel control.
         /// </summary>
@@ -146,7 +148,7 @@ namespace DotNetNuke.Modules.FAQs {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.LinkButton cmdCancel;
-        
+
         /// <summary>
         /// cmdDelete control.
         /// </summary>

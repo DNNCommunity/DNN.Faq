@@ -7,11 +7,13 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace DotNetNuke.Modules.FAQs {
-    
-    
-    public partial class EditFAQs {
-        
+namespace DotNetNuke.Modules.FAQs
+{
+
+
+    public partial class EditFAQs
+    {
+
         /// <summary>
         /// plQuestionField control.
         /// </summary>
@@ -20,7 +22,7 @@ namespace DotNetNuke.Modules.FAQs {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.UserControl plQuestionField;
-        
+
         /// <summary>
         /// valRequiredTitle control.
         /// </summary>
@@ -29,7 +31,7 @@ namespace DotNetNuke.Modules.FAQs {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.RequiredFieldValidator valRequiredTitle;
-        
+
         /// <summary>
         /// plAnswerField control.
         /// </summary>
@@ -38,7 +40,7 @@ namespace DotNetNuke.Modules.FAQs {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.UserControl plAnswerField;
-        
+
         /// <summary>
         /// plCategoryField control.
         /// </summary>
@@ -47,7 +49,7 @@ namespace DotNetNuke.Modules.FAQs {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.UserControl plCategoryField;
-        
+
         /// <summary>
         /// drpCategory control.
         /// </summary>
@@ -56,7 +58,7 @@ namespace DotNetNuke.Modules.FAQs {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.DropDownList drpCategory;
-        
+
         /// <summary>
         /// plFaqHide control.
         /// </summary>
@@ -65,7 +67,7 @@ namespace DotNetNuke.Modules.FAQs {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.UserControl plFaqHide;
-        
+
         /// <summary>
         /// chkFaqHide control.
         /// </summary>
@@ -74,7 +76,7 @@ namespace DotNetNuke.Modules.FAQs {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.CheckBox chkFaqHide;
-        
+
         /// <summary>
         /// plPublishDate control.
         /// </summary>
@@ -83,7 +85,7 @@ namespace DotNetNuke.Modules.FAQs {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.UserControl plPublishDate;
-        
+
         /// <summary>
         /// datepickerPublishDate control.
         /// </summary>
@@ -91,8 +93,8 @@ namespace DotNetNuke.Modules.FAQs {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::DotNetNuke.Web.UI.WebControls.DnnDatePicker datepickerPublishDate;
-        
+        protected global::System.Web.UI.WebControls.TextBox datepickerPublishDate;
+
         /// <summary>
         /// valPublishDate control.
         /// </summary>
@@ -101,7 +103,7 @@ namespace DotNetNuke.Modules.FAQs {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.CompareValidator valPublishDate;
-        
+
         /// <summary>
         /// plExpireDate control.
         /// </summary>
@@ -110,7 +112,7 @@ namespace DotNetNuke.Modules.FAQs {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.UserControl plExpireDate;
-        
+
         /// <summary>
         /// datepickerExpireDate control.
         /// </summary>
@@ -118,8 +120,8 @@ namespace DotNetNuke.Modules.FAQs {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::DotNetNuke.Web.UI.WebControls.DnnDatePicker datepickerExpireDate;
-        
+        protected global::System.Web.UI.WebControls.TextBox datepickerExpireDate;
+
         /// <summary>
         /// valExpireDate control.
         /// </summary>
@@ -128,7 +130,7 @@ namespace DotNetNuke.Modules.FAQs {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.CompareValidator valExpireDate;
-        
+
         /// <summary>
         /// val2ExpireDate control.
         /// </summary>
@@ -137,7 +139,7 @@ namespace DotNetNuke.Modules.FAQs {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.CompareValidator val2ExpireDate;
-        
+
         /// <summary>
         /// cmdUpdate control.
         /// </summary>
@@ -146,7 +148,7 @@ namespace DotNetNuke.Modules.FAQs {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.LinkButton cmdUpdate;
-        
+
         /// <summary>
         /// cmdCancel control.
         /// </summary>
@@ -155,7 +157,7 @@ namespace DotNetNuke.Modules.FAQs {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.LinkButton cmdCancel;
-        
+
         /// <summary>
         /// cmdDelete control.
         /// </summary>

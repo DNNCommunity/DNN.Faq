@@ -20,7 +20,6 @@
             <dnn:Label ID="lblShowCategoryType" ControlName="rblShowCategoryType" runat="server">
             </dnn:Label>
             <asp:RadioButtonList ID="rblShowCategoryType" runat="server" CssClass="dnnFormRadioButtons">
-                <asp:ListItem Value="0" ResourceKey="ShowCategoryTypeList">List with checkboxes</asp:ListItem>
                 <asp:ListItem Value="1" ResourceKey="ShowCategoryTypeTree">Treeview</asp:ListItem>
                 <asp:ListItem Value="2" ResourceKey="ShowCategoryTypeDropDown">Dropdown</asp:ListItem>
             </asp:RadioButtonList>
