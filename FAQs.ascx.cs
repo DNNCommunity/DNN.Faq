@@ -30,8 +30,6 @@ using DotNetNuke.Common.Utilities;
 using DotNetNuke.Entities.Modules.Actions;
 using DotNetNuke.Entities.Modules;
 using DotNetNuke.Services.Localization;
-using Telerik.Web.UI;
-using DotNetNuke.Web.UI.WebControls;
 
 namespace DotNetNuke.Modules.FAQs
 {
@@ -304,6 +302,23 @@ namespace DotNetNuke.Modules.FAQs
 
         #region Private Methods
 
+        private void PopulateTreeView(List<CategoryInfoTreeNode> list, int ParentId, TreeNodeCollection treeNode)
+        {
+            foreach (var row in list.Where(x => x.FaqCategoryParentId == ParentId))
+            {
+                TreeNode child = new TreeNode
+                {
+                    Text = row.FaqCategoryName,
+                    Value = row.FaqCategoryId.ToString()
+                };
+
+                treeNode.Add(child);
+                var dtChild = list.Where(x => x.FaqCategoryParentId == ParentId).ToList();
+                if (dtChild.Count > 0)
+                    PopulateTreeView(list, row.FaqCategoryId, child.ChildNodes);
+            }
+        }
+
         /// <summary>
         /// Binds the (filtered) faq data.
         /// </summary>
@@ -401,18 +416,6 @@ namespace DotNetNuke.Modules.FAQs
                 switch (ShowCategoryType)
                 {
                     case 0:
-                        if (noCat)
-                            categories.Add(emptyCategory);
-                        foreach (CategoryInfo cat in cats)
-                        {
-                            categories.Add(cat);
-                        }
-                        listCategories.DataSource = categories;
-                        listCategories.DataBind();
-                        mvShowCategoryType.SetActiveView(vShowCategoryTypeList);
-                        pnlShowCategoryTypeDropdown.Visible = false;
-                        break;
-
                     case 1:
                         categories.Add(allCategories);
                         if (noCat)
@@ -424,18 +427,14 @@ namespace DotNetNuke.Modules.FAQs
                         // treeCategories fails with int? FaqCategoryParentId
                         // define a temp class that has no nullables
                         // set null ints to Null.NullInt
-                        ArrayList lst = new ArrayList();
+                        var lst = new List<CategoryInfoTreeNode>();
                         foreach (CategoryInfo cat in categories)
                         {
                             lst.Add(cat.ToTreeNode());
                         }
-                        treeCategories.DataTextField = "FaqCategoryName";
-                        treeCategories.DataFieldID = "FaqCategoryId";
-                        treeCategories.DataFieldParentID = "FaqCategoryParentId";
-                        treeCategories.DataSource = lst;
-                        treeCategories.DataBind();
-                        if (!IsPostBack)
-                            treeCategories.Nodes[0].Selected = true;
+
+                        PopulateTreeView(lst, 0, treeCategories.Nodes);
+
                         mvShowCategoryType.SetActiveView(vShowCategoryTypeTree);
                         pnlShowCategoryTypeDropdown.Visible = false;
                         break;
@@ -482,36 +481,6 @@ namespace DotNetNuke.Modules.FAQs
             switch (ShowCategoryType)
             {
                 case 0:
-                    //Filter on the checked items
-                    foreach (RadListBoxItem item in listCategories.Items)
-                    {
-
-                        //Get the checkbox in the Control
-                        CheckBox chkCategory = (CheckBox)(item.FindControl("chkCategory"));
-
-                        //If checked the faq module is being filtered on one or more category's
-                        if (chkCategory.Checked)
-                        {
-
-                            //Set Checked Flag
-                            noneChecked = false;
-
-                            //Get the filtered category
-                            string checkedCategoryName = chkCategory.Text;
-
-                            //Get the elements that match the catagory
-                            var matchedCat = (from c in cats where c.FaqCategoryId == fData.CategoryId select c).SingleOrDefault();
-                            categoryName = (matchedCat != null ? matchedCat.FaqCategoryName : "");
-
-                            if ((categoryName == checkedCategoryName) ||
-                                (fData.CategoryId == null && checkedCategoryName == Localization.GetString("EmptyCategory", LocalResourceFile)))
-                            {
-                                match = true;
-                                break;
-                            }
-                        }
-                    }
-                    break;
                 case 1:
                     if (treeCategories.SelectedNode != null)
                     {
@@ -816,39 +785,6 @@ namespace DotNetNuke.Modules.FAQs
             BindData();
         }
 
-        /// <summary>
-        /// Handles the ItemDataBound event of the listCategories control (adds Tooltip)
-        /// </summary>
-        /// <param name="sender">The source of the event.</param>
-        /// <param name="e">instance containing the event data.</param>
-        protected void listCategories_ItemDataBound(object sender, RadListBoxItemEventArgs e)
-        {
-            if (ShowToolTips)
-                e.Item.ToolTip = (string)DataBinder.Eval(e.Item.DataItem, "FaqCategoryDescription");
-        }
-
-        /// <summary>
-        /// Handles the NodeClick event of the treeCategories control (rebinds data)
-        /// </summary>
-        /// <param name="sender">The source of the event.</param>
-        /// <param name="e">instance containing the event data.</param>
-        protected void treeCategories_NodeClick(object sender, EventArgs e)
-        {
-            //Rebind Data
-            BindData();
-        }
-
-        /// <summary>
-        /// Handles the NodeDataBound event of the treeCategories control (adds Tooltip)
-        /// </summary>
-        /// <param name="sender">The source of the event.</param>
-        /// <param name="e">instance containing the event data.</param>
-        protected void treeCategories_NodeDataBound(object sender, Telerik.Web.UI.RadTreeNodeEventArgs e)
-        {
-            if (ShowToolTips)
-                e.Node.ToolTip = (string)DataBinder.Eval(e.Node.DataItem, "FaqCategoryDescription");
-        }
-
         protected void drpCategories_SelectedIndexChanged(object sender, EventArgs e)
         {
             //Rebind Data
@@ -865,6 +801,10 @@ namespace DotNetNuke.Modules.FAQs
 
         #endregion
 
+        protected void treeCategories_SelectedNodeChanged(object sender, EventArgs e)
+        {
+            BindData();
+        }
     }
 
 }

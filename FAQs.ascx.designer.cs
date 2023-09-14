@@ -7,11 +7,13 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace DotNetNuke.Modules.FAQs {
-    
-    
-    public partial class FAQs {
-        
+namespace DotNetNuke.Modules.FAQs
+{
+
+
+    public partial class FAQs
+    {
+
         /// <summary>
         /// pnlShowCategories control.
         /// </summary>
@@ -20,7 +22,7 @@ namespace DotNetNuke.Modules.FAQs {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Panel pnlShowCategories;
-        
+
         /// <summary>
         /// mvShowCategoryType control.
         /// </summary>
@@ -29,25 +31,7 @@ namespace DotNetNuke.Modules.FAQs {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.MultiView mvShowCategoryType;
-        
-        /// <summary>
-        /// vShowCategoryTypeList control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.View vShowCategoryTypeList;
-        
-        /// <summary>
-        /// listCategories control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::DotNetNuke.Web.UI.WebControls.DnnListBox listCategories;
-        
+
         /// <summary>
         /// vShowCategoryTypeTree control.
         /// </summary>
@@ -56,7 +40,7 @@ namespace DotNetNuke.Modules.FAQs {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.View vShowCategoryTypeTree;
-        
+
         /// <summary>
         /// treeCategories control.
         /// </summary>
@@ -64,8 +48,8 @@ namespace DotNetNuke.Modules.FAQs {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::DotNetNuke.Web.UI.WebControls.DnnTreeView treeCategories;
-        
+        protected global::System.Web.UI.WebControls.TreeView treeCategories;
+
         /// <summary>
         /// pnlSortbox control.
         /// </summary>
@@ -74,7 +58,7 @@ namespace DotNetNuke.Modules.FAQs {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Panel pnlSortbox;
-        
+
         /// <summary>
         /// lblSort control.
         /// </summary>
@@ -83,7 +67,7 @@ namespace DotNetNuke.Modules.FAQs {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.UserControl lblSort;
-        
+
         /// <summary>
         /// drpSort control.
         /// </summary>
@@ -92,7 +76,7 @@ namespace DotNetNuke.Modules.FAQs {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.DropDownList drpSort;
-        
+
         /// <summary>
         /// pnlShowCategoryTypeDropdown control.
         /// </summary>
@@ -101,7 +85,7 @@ namespace DotNetNuke.Modules.FAQs {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Panel pnlShowCategoryTypeDropdown;
-        
+
         /// <summary>
         /// lblSelectCategory control.
         /// </summary>
@@ -110,7 +94,7 @@ namespace DotNetNuke.Modules.FAQs {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.UserControl lblSelectCategory;
-        
+
         /// <summary>
         /// drpCategories control.
         /// </summary>
@@ -119,7 +103,7 @@ namespace DotNetNuke.Modules.FAQs {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.DropDownList drpCategories;
-        
+
         /// <summary>
         /// lstFAQs control.
         /// </summary>

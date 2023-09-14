@@ -99,10 +99,14 @@ namespace DotNetNuke.Modules.FAQs
         /// <param name="e">The <see cref="System.EventArgs" /> instance containing the event data.</param>
         protected void Page_Load(System.Object sender, System.EventArgs e)
         {
+            if (this.Page.ClientScript.IsClientScriptBlockRegistered("pikaday.min.js") == false)
+            {
+                this.Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "Moment.js", "<script language=javascript src=\"https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js\"></script>");
+                this.Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "AjaxFaq.js", "<script language=javascript src=\"https://cdn.jsdelivr.net/npm/pikaday/pikaday.min.js\"></script>");
+            }
 
             if (Page.IsPostBack == false)
             {
-
                 cmdDelete.Attributes.Add("onClick", "javascript:return confirm(\'" + Localization.GetString("DeleteItem") + "\');");
 
                 FAQsController FAQsController = new FAQsController();
@@ -123,8 +127,8 @@ namespace DotNetNuke.Modules.FAQs
                         }
 
                         chkFaqHide.Checked = FaqItem.FaqHide;
-                        datepickerPublishDate.SelectedDate = FaqItem.PublishDate;
-                        datepickerExpireDate.SelectedDate = FaqItem.ExpireDate;
+                        datepickerPublishDate.Text = FaqItem.PublishDate.ToString();
+                        datepickerExpireDate.Text = FaqItem.ExpireDate.ToString();
                         teAnswerField.Text = FaqItem.Answer;
                         txtQuestionField.Text = FaqItem.Question;
                         UserInfo user = UserController.GetUserById(PortalId, Convert.ToInt32(FaqItem.CreatedByUser));
@@ -182,8 +186,8 @@ namespace DotNetNuke.Modules.FAQs
                     faq = faqsController.GetFAQ(FaqId);
                     faq.CategoryId = newCatID;
                     faq.FaqHide = chkFaqHide.Checked;
-                    faq.PublishDate = datepickerPublishDate.SelectedDate;
-                    faq.ExpireDate = datepickerExpireDate.SelectedDate;
+                    faq.PublishDate = !string.IsNullOrEmpty(datepickerPublishDate.Text) ? Convert.ToDateTime(datepickerPublishDate.Text) : (DateTime?)null;
+                    faq.ExpireDate = !string.IsNullOrEmpty(datepickerExpireDate.Text) ? Convert.ToDateTime(datepickerExpireDate.Text) : (DateTime?)null;
                     faq.Question = question;
                     faq.Answer = answer;
                     faq.DateModified = DateTime.Now;
@@ -192,20 +196,20 @@ namespace DotNetNuke.Modules.FAQs
                 else
                 {
                     faq = new FAQsInfo
-                              {
-                                  ItemID = FaqId,
-                                  CategoryId = newCatID,
-                                  FaqHide = chkFaqHide.Checked,
-                                  PublishDate = datepickerPublishDate.SelectedDate,
-                                  ExpireDate = datepickerExpireDate.SelectedDate,
-                                  Question = question,
-                                  Answer = answer,
-                                  CreatedByUser = UserId.ToString(),
-                                  ViewCount = 0,
-                                  DateModified = DateTime.Now,
-                                  ModuleID = ModuleId,
-                                  CreatedDate = DateTime.Now
-                              };
+                    {
+                        ItemID = FaqId,
+                        CategoryId = newCatID,
+                        FaqHide = chkFaqHide.Checked,
+                        PublishDate = !string.IsNullOrEmpty(datepickerPublishDate.Text) ? Convert.ToDateTime(datepickerPublishDate.Text) : (DateTime?)null,
+                        ExpireDate = !string.IsNullOrEmpty(datepickerExpireDate.Text) ? Convert.ToDateTime(datepickerExpireDate.Text) : (DateTime?)null,
+                        Question = question,
+                        Answer = answer,
+                        CreatedByUser = UserId.ToString(),
+                        ViewCount = 0,
+                        DateModified = DateTime.Now,
+                        ModuleID = ModuleId,
+                        CreatedDate = DateTime.Now
+                    };
                     faqsController.AddFAQ(faq);
                 }
                 Response.Redirect(Globals.NavigateURL(), true);

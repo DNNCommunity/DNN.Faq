@@ -3,7 +3,6 @@
 <%@ Register TagPrefix="Portal" TagName="Audit" Src="~/controls/ModuleAuditControl.ascx" %>
 <%@ Register TagPrefix="dnn" TagName="TextEditor" Src="~/controls/TextEditor.ascx" %>
 <%@ Register TagPrefix="dnn" Namespace="DotNetNuke.Web.UI.WebControls" Assembly="DotNetNuke.Web" %>
-<%@ Register TagPrefix="dnn" Namespace="DotNetNuke.Web.UI.WebControls" Assembly="DotNetNuke.Web.Deprecated" %>
 <div class="dnnForm dnnEditFAQs dnnClear">
     <div class="dnnFormItem">
         <dnn:Label id="plQuestionField" runat="server" controlname="txtQuestionField">
@@ -32,12 +31,12 @@
     </div>
     <div class="dnnFormItem">
         <dnn:Label ID="plPublishDate" runat="server" ControlName="datepickerPublishDate" />
-        <dnn:DnnDatePicker ID="datepickerPublishDate" runat="server" />&nbsp;
+        <asp:TextBox runat="server" ID="datepickerPublishDate"></asp:TextBox>&nbsp;
         <asp:CompareValidator ID="valPublishDate" resourcekey="valPublishDate.ErrorMessage" Operator="DataTypeCheck" Type="Date" runat="server" Display="Dynamic" ControlToValidate="datepickerPublishDate" CssClass="dnnFormMessage dnnFormError" />
     </div>
     <div class="dnnFormItem">
         <dnn:Label ID="plExpireDate" runat="server" ControlName="datepickerExpireDate" />
-        <dnn:DnnDatePicker ID="datepickerExpireDate" runat="server" />&nbsp;
+        <asp:TextBox runat="server" ID="datepickerExpireDate"></asp:TextBox>&nbsp;
         <asp:CompareValidator ID="valExpireDate" resourcekey="valExpireDate.ErrorMessage" Operator="DataTypeCheck" Type="Date" runat="server" Display="Dynamic" ControlToValidate="datepickerExpireDate" CssClass="dnnFormMessage dnnFormError" />
         <asp:CompareValidator ID="val2ExpireDate" resourcekey="val2ExpireDate.ErrorMessage" Operator="GreaterThanEqual" Type="Date" runat="server" Display="Dynamic" ControlToValidate="datepickerExpireDate" ControlToCompare="datepickerPublishDate" CssClass="dnnFormMessage dnnFormError" />
     </div>
@@ -52,3 +51,10 @@
     <Portal:Audit ID="ctlAudit" runat="server">
     </Portal:Audit>
 </div>
+
+<script type="text/javascript">
+    $(function () {
+        new Pikaday({ field: document.getElementById('<%= datepickerPublishDate.ClientID %>'), format: 'M/D/YYYY' });
+        new Pikaday({ field: document.getElementById('<%= datepickerExpireDate.ClientID %>'), format: 'M/D/YYYY' });
+    })
+</script>
